@@ -170,3 +170,10 @@ body {
   right: -1.5rem;
   rotate: 180deg;
 }
+
+/* ! TEMP */
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
