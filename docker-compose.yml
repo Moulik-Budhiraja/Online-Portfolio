@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.0.1
+    image: portfolio-site:0.0.2
     ports:
       - "9842:80"
 
