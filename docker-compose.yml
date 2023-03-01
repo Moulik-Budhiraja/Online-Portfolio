@@ -2,10 +2,11 @@ version: "3.3"
 
 services:
   portfolio-site:
-  build:
-    context: .
-    dockerfile: Dockerfile
-  ports:
-    - "9842:80"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: portfolio-site:0.0.1
+    ports:
+      - "9842:80"
 
-  restart: always
+    restart: always
