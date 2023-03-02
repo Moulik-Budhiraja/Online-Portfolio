@@ -9,4 +9,5 @@ services:
     ports:
       - "9842:80"
 
+    pull_policy: build
     restart: always
