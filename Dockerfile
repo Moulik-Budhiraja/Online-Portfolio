@@ -1,28 +1,13 @@
-FROM ubuntu
+FROM node:lts-alpine
 
-RUN apt-get update
-RUN apt-get install nginx -y
+WORKDIR /usr/app
 
-## Build the app
-
-COPY . /app
-
-WORKDIR /app
-
-RUN apt-get install curl -y
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-
-RUN apt-get install nodejs -y
+COPY package*.json ./
 
 RUN npm install
 
-RUN npm run-script build
+COPY . .
 
-RUN cp -r dist/* /var/www/html/
+EXPOSE 3000
 
-WORKDIR /
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]

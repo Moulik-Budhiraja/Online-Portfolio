@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.0.4
+    image: portfolio-site:0.1.0
     ports:
-      - "9842:80"
+      - "9842:3000"
 
     pull_policy: build
     restart: always
