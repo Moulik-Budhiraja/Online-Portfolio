@@ -1,13 +1,34 @@
 version: "3.3"
 
 services:
+  database:
+    image: mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ${VOLUME_PATH}:/var/lib/mysql
+
   portfolio-site:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.1.4
+    image: portfolio-site:0.1.5
     ports:
       - "9842:3000"
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_PORT=3306
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    depends_on:
+      - database
 
     pull_policy: build
     restart: always

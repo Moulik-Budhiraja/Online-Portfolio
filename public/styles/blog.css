@@ -7,6 +7,9 @@ body {
   margin: 0 auto;
   padding: 2rem;
   overflow-x: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pill {
@@ -18,6 +21,7 @@ body {
   opacity: 0.03;
   translate: -50% -50%;
   /* display: none; */
+  pointer-events: none;
 }
 
 .pill-1 {
@@ -31,11 +35,6 @@ body {
   right: -150vw;
   rotate: -60deg;
   display: none;
-}
-
-main {
-  display: flex;
-  justify-content: center;
 }
 
 h1 {
@@ -52,7 +51,19 @@ h2 {
 }
 
 h3 {
-  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-family: "Poiret One", sans-serif;
+  color: #eee;
+}
+
+h4 {
+  font-size: 1.3rem;
+  font-family: "Poiret One", sans-serif;
+  color: #eee;
+}
+
+h5 {
+  font-size: 1rem;
   font-family: "Poiret One", sans-serif;
   color: #eee;
 }
@@ -146,6 +157,185 @@ p.img-subtitle {
   margin-top: 3rem;
 }
 
+.comment-container {
+  margin-block: 2rem;
+}
+
+.comment {
+  width: fit-content;
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.comment > .header {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.comment > .header > .title {
+  padding-top: 0.5rem;
+}
+
+.comment > .header > .name {
+  color: #aaa;
+}
+
+.comment > .content {
+  margin-bottom: 0;
+}
+
+.comment > .reply {
+  height: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  width: 5rem;
+  margin-left: auto;
+  margin-right: 0.25rem;
+}
+
+.comment > .reply > span {
+  font-size: 1.1rem;
+  color: #aaa;
+  font-family: "Poiret One", sans-serif;
+  pointer-events: none;
+
+  transition: color 0.2s ease-out;
+}
+
+.comment > .reply > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.comment > .reply > svg > g {
+  stroke: #aaa;
+  stroke-width: 0.05rem;
+  transition: stroke 0.2s ease-out;
+}
+
+.comment > .reply:is(:hover, :focus) > span {
+  color: #fff;
+}
+
+.comment > .reply:is(:hover, :focus) > svg > g {
+  stroke: #fff;
+}
+
+.comment > .reply-window {
+  margin-block: 1rem;
+  position: relative;
+}
+
+.comment > .reply-window > .cancel {
+  height: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  width: 5rem;
+  position: absolute;
+  right: 0;
+  top: 1rem;
+}
+
+.comment > .reply-window > .cancel * {
+  pointer-events: none;
+}
+
+.comment > .reply-window > .cancel > span {
+  font-size: 1.1rem;
+  color: #aaa;
+  font-family: "Poiret One", sans-serif;
+  pointer-events: none;
+
+  transition: color 0.2s ease-out;
+}
+
+.comment > .reply-window > .cancel svg {
+  fill: none;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.comment > .reply-window > .cancel svg line {
+  stroke: #aaa;
+  stroke-width: 0.1rem;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  transition: stroke 0.2s ease-out;
+}
+
+.comment > .reply-window > .cancel:is(:hover, :focus) > span {
+  color: #fff;
+}
+
+.comment > .reply-window > .cancel:is(:hover, :focus) > svg line {
+  stroke: #fff;
+}
+
+.comment-form {
+  width: min(100%, 50rem);
+  font-family: "Poiret One", sans-serif;
+  position: relative;
+}
+
+.comment-form > input,
+textarea {
+  width: 100%;
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
+  background: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.3rem;
+  outline: none;
+  color: #aaa;
+  font-family: "Manrope", sans-serif;
+  margin-block: 1rem;
+}
+
+.comment-form > textarea {
+  resize: vertical;
+}
+
+.comment-form span {
+  position: absolute;
+  left: 0;
+  margin-block: 1.75rem;
+  margin-inline: 1.25rem;
+  color: #999;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+.comment-form input:valid + span,
+.comment-form input:focus + span,
+.comment-form textarea:valid + span,
+.comment-form textarea:focus + span {
+  color: #eee;
+  translate: 0rem -1.5rem;
+  padding: 0 0.5rem;
+  background-color: #222222;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.1rem;
+}
+
+.comment-form #submit {
+  transition: 0.3s;
+}
+
+.comment-form #submit:is(:hover, :focus) {
+  cursor: pointer;
+  background-color: #999;
+  color: #111;
+  letter-spacing: 0.1rem;
+}
+
 @media (min-width: 925px) {
   .wrapper {
     padding: 0 2rem;
@@ -162,8 +352,28 @@ p.img-subtitle {
     margin: 0 2rem;
   }
 
+  main {
+    max-width: 50rem;
+  }
+
   article {
     padding-top: 2rem;
-    width: clamp(30rem, 70vw, 50rem);
+    width: clamp(30rem, 85vw, 50rem);
+  }
+
+  .comment {
+    max-width: 50rem;
+  }
+
+  .comment-form #name {
+    width: clamp(15rem, 40%, 25rem);
+  }
+
+  .comment-form #title {
+    width: clamp(15rem, 60%, 40rem);
+  }
+
+  .comment-form #submit {
+    width: 10rem;
   }
 }
