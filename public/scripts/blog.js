@@ -73,12 +73,39 @@ async function renderComments() {
     for (let i = 0; i < comments.length; i++) {
       const comment = comments[i];
 
+      let dateString = "";
+
+      // If the comment was created today, display the time
+      // If the comment was created this year, display the month and day
+      // Otherwise, display the month and year
+      const today = new Date();
+      if (
+        comment.created_at.getDate() === today.getDate() &&
+        comment.created_at.getMonth() === today.getMonth() &&
+        comment.created_at.getFullYear() === today.getFullYear()
+      ) {
+        dateString = comment.created_at.toLocaleTimeString();
+      } else if (comment.created_at.getFullYear() === today.getFullYear()) {
+        dateString = comment.created_at.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
+      } else {
+        dateString = comment.created_at.toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric",
+        });
+      }
+
       if (comment.parent_id === null) {
         document.querySelector(".comment-container").innerHTML += `
                     <div class="comment" data-comment-id="${comment.id}">
                     <div class="header">
                         <h4 class="title">${comment.title}</h4>
                         <h5 class="name">${comment.name}</h5>
+                        <div class="timestamp">
+                          <span>${dateString}</span>
+                        </div>
                     </div>
 
                         <p class="content">${comment.content}</p>
@@ -115,6 +142,9 @@ async function renderComments() {
                         <div class="header">
                             <h4 class="title">${comment.title}</h4>
                             <h5 class="name">${comment.name}</h5>
+                            <div class="timestamp">
+                              <span>${dateString}</span>
+                            </div>
                         </div>
                             <p class="content">${comment.content}</p>
                             <div class="reply">
@@ -312,3 +342,5 @@ function replyButtonListener(e) {
 }
 
 await renderComments();
+
+console.log(await getComments(1));

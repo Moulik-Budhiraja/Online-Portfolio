@@ -165,7 +165,6 @@ p.img-subtitle {
   width: fit-content;
   border-left: 2px solid rgba(255, 255, 255, 0.25);
   padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 
 .comment > .header {
@@ -194,7 +193,6 @@ p.img-subtitle {
   cursor: pointer;
   width: 5rem;
   margin-left: auto;
-  margin-right: 0.25rem;
 }
 
 .comment > .reply > span {
@@ -276,6 +274,18 @@ p.img-subtitle {
 
 .comment > .reply-window > .cancel:is(:hover, :focus) > svg line {
   stroke: #fff;
+}
+
+.comment > .header > .timestamp {
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.8;
+  margin-left: auto;
+  font-family: "Poiret One", sans-serif;
+  color: #aaa;
+  letter-spacing: -0.03rem;
+  padding-left: 3rem;
+  padding-right: 0.5rem;
 }
 
 .comment-form {
