@@ -16,3 +16,13 @@ elements.forEach((element, index) => {
     child.style.animationDelay = `${animationDelay}s`;
   });
 });
+
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".pop-over").forEach((element) => {
+    if (!element.contains(e.target)) {
+      element.blur();
+      console.log("blurred");
+    }
+  });
+  console.log("clicked");
+});

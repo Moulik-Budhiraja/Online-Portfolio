@@ -126,6 +126,82 @@ ul.contents {
   margin-bottom: 1rem;
 }
 
+.pop-over {
+  filter: brightness(1.2);
+  text-decoration: underline;
+  text-decoration-thickness: 0.05rem;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
+}
+
+.inline-pop-over {
+  text-decoration: none;
+}
+
+.pop-over:is(:hover, :focus) {
+  color: #eee;
+  text-decoration-color: #eee;
+  text-decoration-thickness: 0.05rem;
+  text-decoration: underline;
+}
+
+.pop-over > span {
+  opacity: 0;
+  display: flex;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 1rem;
+  border: 2px solid #222;
+  position: absolute;
+  top: -4.5rem;
+  width: 7rem;
+  left: 50%;
+  translate: -50% -30%;
+  transition: translate 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.pop-over > span::before {
+  content: "";
+  position: absolute;
+  height: 150%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.pop-over > span::after {
+  content: "";
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  background-color: #111;
+  rotate: 45deg;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 50%;
+}
+
+.pop-over:is(:hover, :focus) > span {
+  visibility: visible;
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.pop-over img {
+  height: 2rem;
+  width: 2rem;
+  transition: transform 0.2s ease-out;
+  opacity: 0.2;
+  transition: opacity 0.2s ease-out;
+}
+
+.pop-over a:is(:hover, :focus) img {
+  opacity: 0.8;
+}
+
 .publish-info {
   opacity: 0.8;
   font-size: 0.9rem;

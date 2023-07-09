@@ -347,4 +347,12 @@ function replyButtonListener(e) {
 
 await renderComments();
 
-console.log(await getComments(1));
+document.addEventListener("click", (e) => {
+  document.querySelectorAll(".pop-over").forEach((element) => {
+    if (!element.contains(e.target)) {
+      element.blur();
+      console.log("blurred");
+    }
+  });
+  console.log("clicked");
+});
