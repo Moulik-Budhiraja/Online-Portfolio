@@ -307,7 +307,8 @@ a.inline-link {
   width: 7rem;
   left: 50%;
   translate: -50% -30%;
-  transition: translate 0.2s ease-out, opacity 0.4s ease-out;
+  pointer-events: none;
+  transition: translate 0.3s ease-out, opacity 0.4s ease-out;
 }
 
 .pop-over > span::before {
@@ -317,6 +318,7 @@ a.inline-link {
   width: 100%;
   left: 0;
   top: 0;
+  pointer-events: none;
 }
 
 .pop-over > span::after {
@@ -329,12 +331,18 @@ a.inline-link {
   bottom: 0;
   left: 50%;
   translate: -50% 50%;
+  pointer-events: none;
 }
 
 .pop-over:is(:hover, :focus) > span {
   visibility: visible;
   opacity: 1;
   translate: -50% 0;
+  pointer-events: auto;
+}
+
+.pop-over:is(:hover, :focus) > span::before {
+  pointer-events: auto;
 }
 
 .pop-over img {

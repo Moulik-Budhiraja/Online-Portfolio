@@ -136,10 +136,6 @@ ul.contents {
   transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
 }
 
-.inline-pop-over {
-  text-decoration: none;
-}
-
 .pop-over:is(:hover, :focus) {
   color: #eee;
   text-decoration-color: #eee;
@@ -160,7 +156,8 @@ ul.contents {
   width: 7rem;
   left: 50%;
   translate: -50% -30%;
-  transition: translate 0.4s ease-out, opacity 0.4s ease-out;
+  pointer-events: none;
+  transition: translate 0.3s ease-out, opacity 0.4s ease-out;
 }
 
 .pop-over > span::before {
@@ -170,6 +167,7 @@ ul.contents {
   width: 100%;
   left: 0;
   top: 0;
+  pointer-events: none;
 }
 
 .pop-over > span::after {
@@ -182,12 +180,18 @@ ul.contents {
   bottom: 0;
   left: 50%;
   translate: -50% 50%;
+  pointer-events: none;
 }
 
 .pop-over:is(:hover, :focus) > span {
   visibility: visible;
   opacity: 1;
   translate: -50% 0;
+  pointer-events: auto;
+}
+
+.pop-over:is(:hover, :focus) > span::before {
+  pointer-events: auto;
 }
 
 .pop-over img {
