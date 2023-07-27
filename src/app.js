@@ -11,6 +11,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, "../public")));
+app.set("view engine", "ejs");
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -18,14 +19,14 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/views/index.html"));
+  res.render("index");
 });
 
 app.get("/blog/:title", (req, res) => {
   // Check if title exists in the file system
   const title = req.params.title;
 
-  res.sendFile(path.join(__dirname, `/views/blog/${title}.html`));
+  res.render(`blog/${title}`);
 });
 
 // Get a blog's comments by blog id
@@ -52,7 +53,6 @@ app.get("/api/blog/file/:filename", async (req, res) => {
 // Create a new comment
 app.post("/api/blog/:blogId/comment", bodyParser.json(), async (req, res) => {
   const blogId = req.params.blogId;
-  console.log(req.body);
   const { title, name, content, parentId } = req.body;
 
   if (title.length > 40 || name.length > 25 || content.length > 2000) {
