@@ -11,14 +11,14 @@ async function getComments(blogId) {
   const response = await fetch(`/api/blog/${blogId}/comments`);
   const comments = await response.json();
 
-  // Convert the created_at and updated_at strings to Date objects
+  // Convert the createdAt and updatedAt strings to Date objects
   comments.forEach((comment) => {
-    comment.created_at = new Date(comment.created_at);
-    comment.updated_at = new Date(comment.updated_at);
+    comment.createdAt = new Date(comment.createdAt);
+    comment.updatedAt = new Date(comment.updatedAt);
   });
 
-  // Sort the comments by created_at date
-  comments.sort((a, b) => a.created_at - b.created_at);
+  // Sort the comments by createdAt date
+  comments.sort((a, b) => a.createdAt - b.createdAt);
 
   return comments;
 }
@@ -80,22 +80,22 @@ async function renderComments() {
       // Otherwise, display the month and year
       const today = new Date();
       if (
-        comment.created_at.getDate() === today.getDate() &&
-        comment.created_at.getMonth() === today.getMonth() &&
-        comment.created_at.getFullYear() === today.getFullYear()
+        comment.createdAt.getDate() === today.getDate() &&
+        comment.createdAt.getMonth() === today.getMonth() &&
+        comment.createdAt.getFullYear() === today.getFullYear()
       ) {
-        dateString = comment.created_at.toLocaleTimeString("en-US", {
+        dateString = comment.createdAt.toLocaleTimeString("en-US", {
           hour: "numeric",
           minute: "numeric",
           hour12: true,
         });
-      } else if (comment.created_at.getFullYear() === today.getFullYear()) {
-        dateString = comment.created_at.toLocaleDateString("en-US", {
+      } else if (comment.createdAt.getFullYear() === today.getFullYear()) {
+        dateString = comment.createdAt.toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
         });
       } else {
-        dateString = comment.created_at.toLocaleDateString("en-US", {
+        dateString = comment.createdAt.toLocaleDateString("en-US", {
           month: "short",
           year: "numeric",
         });

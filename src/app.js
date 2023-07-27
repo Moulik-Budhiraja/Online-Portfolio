@@ -2,12 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
-import {
-  getBlogById,
-  getBlogByFilename,
-  getCommentsByBlogId,
-  insertComment,
-} from "./database.js";
+import { Blog, Comment } from "./models.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,7 +33,10 @@ app.get("/api/blog/:blogId/comments", async (req, res) => {
   const blogId = req.params.blogId;
   const limit = req.query.limit || 100;
 
-  const comments = await getCommentsByBlogId(blogId, limit);
+  const comments = await Comment.findAll({
+    where: { blog_id: blogId },
+    limit: limit,
+  });
   res.json(comments);
 });
 
@@ -46,7 +44,8 @@ app.get("/api/blog/:blogId/comments", async (req, res) => {
 app.get("/api/blog/file/:filename", async (req, res) => {
   const filename = req.params.filename;
 
-  const blog = await getBlogByFilename(filename);
+  const blog = await Blog.findOne({ where: { filename: filename } });
+
   res.json(blog);
 });
 
@@ -64,12 +63,12 @@ app.post("/api/blog/:blogId/comment", bodyParser.json(), async (req, res) => {
     return;
   }
 
-  const comment = await insertComment({
-    blogId,
-    parentId,
-    title,
-    name,
-    content,
+  const comment = await Comment.create({
+    blog_id: blogId,
+    parent_id: parentId,
+    title: title,
+    name: name,
+    content: content,
   });
 
   res.status(201).json(comment);
