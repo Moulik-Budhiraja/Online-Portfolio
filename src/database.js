@@ -21,21 +21,21 @@ await pool.query(
         title VARCHAR(255) NOT NULL,
         filename VARCHAR(255) NOT NULL,
         description VARCHAR(1000) DEFAULT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )`
 );
 
 await pool.query(
   `CREATE TABLE IF NOT EXISTS comments (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        blog_id INT NOT NULL,
-        parent_id INT DEFAULT NULL,
+        blogId INT NOT NULL,
+        parentId INT DEFAULT NULL,
         title VARCHAR(255) NOT NULL,
         name VARCHAR(255) NOT NULL,
         content VARCHAR(2000) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (blog_id) REFERENCES blogs(id) ON DELETE CASCADE
     )`
 );
@@ -54,7 +54,7 @@ export async function getBlogByFilename(filename) {
 
 export async function getCommentsByBlogId(blogId, limit = 100) {
   const [rows] = await pool.query(
-    "SELECT * FROM comments WHERE blog_id = ? ORDER BY created_at DESC LIMIT ?",
+    "SELECT * FROM comments WHERE blogId = ? ORDER BY createdAt DESC LIMIT ?",
     [blogId, limit]
   );
   return rows;
@@ -73,7 +73,7 @@ export async function insertComment({
   content,
 }) {
   const [result] = await pool.query(
-    "INSERT INTO comments (blog_id, parent_id, title, name, content) VALUES (?, ?, ?, ?, ?)",
+    "INSERT INTO comments (blogId, parentId, title, name, content) VALUES (?, ?, ?, ?, ?)",
     [blogId, parentId, title, name, content]
   );
 

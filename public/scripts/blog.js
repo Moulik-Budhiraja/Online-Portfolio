@@ -101,7 +101,7 @@ async function renderComments() {
         });
       }
 
-      if (comment.parent_id === null) {
+      if (comment.parentId === null) {
         document.querySelector(".comment-container").innerHTML += `
                     <div class="comment" data-comment-id="${comment.id}">
                     <div class="header">
@@ -138,7 +138,7 @@ async function renderComments() {
         toRemove.push(comment);
       } else {
         const parentComment = document.querySelector(
-          `[data-comment-id="${comment.parent_id}"]`
+          `[data-comment-id="${comment.parentId}"]`
         );
         if (parentComment) {
           parentComment.innerHTML += `
