@@ -1,3 +1,6 @@
+import { newComment } from "./components/comment.js";
+import { replyButton, replyWindow } from "./components/replyActions.js";
+
 async function getBlogId() {
   const blogFilename = window.location.pathname.split("/").pop();
 
@@ -102,76 +105,20 @@ async function renderComments() {
       }
 
       if (comment.parentId === null) {
-        document.querySelector(".comment-container").innerHTML += `
-                    <div class="comment" data-comment-id="${comment.id}">
-                    <div class="header">
-                        <h4 class="title">${comment.title}</h4>
-                        <h5 class="name">${comment.name}</h5>
-                        <div class="timestamp">
-                          <span>${dateString}</span>
-                        </div>
-                    </div>
+        document
+          .querySelector(".comment-container")
+          .appendChild(newComment(comment, dateString));
 
-                        <p class="content">${comment.content}</p>
-                        <div class="reply">
-                            <svg
-                                width="800px"
-                                height="800px"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g id="Arrow / Arrow_Undo_Up_Left">
-                                    <path
-                                        id="Vector"
-                                        d="M7 13L3 9M3 9L7 5M3 9H16C18.7614 9 21 11.2386 21 14C21 16.7614 18.7614 19 16 19H11"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </g>
-                            </svg>
-                            <span>Reply</span>
-                        </div>
-                    </div>
-                `;
         commentsAdded++;
         toRemove.push(comment);
       } else {
         const parentComment = document.querySelector(
           `[data-comment-id="${comment.parentId}"]`
         );
+
         if (parentComment) {
-          parentComment.innerHTML += `
-                        <div class="comment" data-comment-id="${comment.id}">
-                        <div class="header">
-                            <h4 class="title">${comment.title}</h4>
-                            <h5 class="name">${comment.name}</h5>
-                            <div class="timestamp">
-                              <span>${dateString}</span>
-                            </div>
-                        </div>
-                            <p class="content">${comment.content}</p>
-                            <div class="reply">
-                                <svg
-                                    width="800px"
-                                    height="800px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <g id="Arrow / Arrow_Undo_Up_Left">
-                                        <path
-                                            id="Vector"
-                                            d="M7 13L3 9M3 9L7 5M3 9H16C18.7614 9 21 11.2386 21 14C21 16.7614 18.7614 19 16 19H11"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </g>
-                                </svg>
-                                <span>Reply</span>
-                            </div>
-                        </div>
-                    `;
+          parentComment.appendChild(newComment(comment, dateString));
+
           commentsAdded++;
           toRemove.push(comment);
         }
@@ -199,74 +146,6 @@ async function renderComments() {
       "<p>No comments yet. Be the first to leave one.</p>";
   }
 }
-
-const replyButton = `<div class="reply">
-<svg
-  width="800px"
-  height="800px"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <g id="Arrow / Arrow_Undo_Up_Left">
-    <path
-      id="Vector"
-      d="M7 13L3 9M3 9L7 5M3 9H16C18.7614 9 21 11.2386 21 14C21 16.7614 18.7614 19 16 19H11"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </g>
-</svg>
-<span>Reply</span>
-</div>`;
-
-const replyWindow = `<div class="reply-window">
-<h2>Reply</h2>
-<div class="cancel">
-  <svg
-    width="800px"
-    height="800px"
-    viewBox="0 0 32 32"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <title />
-
-    <g id="cross">
-      <line class="cls-1" x1="7" x2="25" y1="7" y2="25" />
-      <line class="cls-1" x1="7" x2="25" y1="25" y2="7" />
-    </g>
-  </svg>
-  <span>Cancel</span>
-</div>
-<form action="#" method="post" class="comment-form">
-            <input
-              type="name"
-              name="name"
-              id="name"
-              required="required"
-              maxlength="25"
-            />
-            <span>Name</span>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              required="required"
-              maxlength="40"
-            />
-            <span>Title</span>
-            <textarea
-              name="content"
-              id="content"
-              required="required"
-              rows="5"
-              maxlength="2000"
-            ></textarea>
-            <span>Body</span>
-
-            <input type="submit" id="submit" value="Submit" />
-          </form>
-</div>`;
 
 async function formListener(e) {
   e.preventDefault();
@@ -308,13 +187,15 @@ function replyButtonListener(e) {
       comment.querySelector(".reply-window").remove();
       comment
         .querySelector(".content")
-        .insertAdjacentHTML("afterend", replyButton);
+        .insertAdjacentElement("afterend", replyButton);
     }
   });
 
   // Replace the reply button with a reply window
   comment.querySelector(".reply").remove();
-  comment.querySelector(".content").insertAdjacentHTML("afterend", replyWindow);
+  comment
+    .querySelector(".content")
+    .insertAdjacentElement("afterend", replyWindow);
 
   console.log(comment);
 
