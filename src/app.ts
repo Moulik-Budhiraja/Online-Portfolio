@@ -1,16 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
+import { PrismaClient } from "@prisma/client";
 import { fileURLToPath } from "url";
-import {
-  getBlogById,
-  getBlogByFilename,
-  getCommentsByBlogId,
-  insertComment,
-} from "./database.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const prisma = new PrismaClient();
 
 const app = express();
 const port = 3000;
@@ -18,7 +12,7 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, "../public")));
 app.set("view engine", "ejs");
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
@@ -37,9 +31,17 @@ app.get("/blog/:title", (req, res) => {
 // Get a blog's comments by blog id
 app.get("/api/blog/:blogId/comments", async (req, res) => {
   const blogId = req.params.blogId;
-  const limit = req.query.limit || 100;
+  const limit = Number.parseInt(req.query.limit as string) || 100;
 
-  const comments = await getCommentsByBlogId(blogId, limit);
+  const comments = await prisma.comment.findMany({
+    where: {
+      blogId: blogId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: limit,
+  });
   res.json(comments);
 });
 
@@ -47,14 +49,17 @@ app.get("/api/blog/:blogId/comments", async (req, res) => {
 app.get("/api/blog/file/:filename", async (req, res) => {
   const filename = req.params.filename;
 
-  const blog = await getBlogByFilename(filename);
+  const blog = await prisma.blog.findUnique({
+    where: {
+      filename: filename,
+    },
+  });
   res.json(blog);
 });
 
 // Create a new comment
 app.post("/api/blog/:blogId/comment", bodyParser.json(), async (req, res) => {
   const blogId = req.params.blogId;
-  console.log(req.body);
   const { title, name, content, parentId } = req.body;
 
   if (title.length > 40 || name.length > 25 || content.length > 2000) {
@@ -65,13 +70,40 @@ app.post("/api/blog/:blogId/comment", bodyParser.json(), async (req, res) => {
     return;
   }
 
-  const comment = await insertComment({
-    blogId,
-    parentId,
-    title,
-    name,
-    content,
-  });
+  let comment;
+
+  if (parentId) {
+    comment = await prisma.comment.create({
+      data: {
+        title: title,
+        name: name,
+        content: content,
+        blog: {
+          connect: {
+            id: blogId,
+          },
+        },
+        parent: {
+          connect: {
+            id: parentId,
+          },
+        },
+      },
+    });
+  } else {
+    comment = await prisma.comment.create({
+      data: {
+        title: title,
+        name: name,
+        content: content,
+        blog: {
+          connect: {
+            id: blogId,
+          },
+        },
+      },
+    });
+  }
 
   res.status(201).json(comment);
 });
