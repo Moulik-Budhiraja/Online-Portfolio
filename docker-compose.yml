@@ -19,15 +19,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.2.1
+    image: portfolio-site:0.3.0
     ports:
       - "9842:3000"
     environment:
       - MYSQL_HOST=database
-      - MYSQL_PORT=3306
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - DATABASE_URL=${DATABASE_URL}
       - TZ=${TZ}
 
     depends_on:
