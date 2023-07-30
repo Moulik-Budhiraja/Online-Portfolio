@@ -4,15 +4,14 @@ import { replyButton, replyWindow } from "./components/replyActions.js";
 async function getBlogId() {
   const blogFilename = window.location.pathname.split("/").pop();
 
-  const response = await fetch(`/api/blog/file/${blogFilename}`);
-  const blog = await response.json();
+  const response = await axios.get(`/api/blog/file/${blogFilename}`);
 
-  return blog.id;
+  return response.data.id;
 }
 
 async function getComments(blogId) {
-  const response = await fetch(`/api/blog/${blogId}/comments`);
-  const comments = await response.json();
+  const response = await axios.get(`/api/blog/${blogId}/comments`);
+  const comments = response.data;
 
   // Convert the createdAt and updatedAt strings to Date objects
   comments.forEach((comment) => {
@@ -27,30 +26,14 @@ async function getComments(blogId) {
 }
 
 async function postComment(blogId, parentId, title, name, content) {
-  const response = await fetch(`/api/blog/${blogId}/comment`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      title,
-      name,
-      content,
-      parentId,
-    }),
+  const response = await axios.post(`/api/blog/${blogId}/comment`, {
+    title,
+    name,
+    content,
+    parentId,
   });
 
-  console.log(
-    JSON.stringify({
-      title,
-      name,
-      content,
-      parentId,
-    })
-  );
-
-  const comment = await response.json();
-
+  const comment = await response.data;
   return comment;
 }
 
@@ -105,9 +88,10 @@ async function renderComments() {
       }
 
       if (comment.parentId === null) {
-        document
-          .querySelector(".comment-container")
-          .appendChild(newComment(comment, dateString));
+        document.querySelector(".comment-container").innerHTML += newComment(
+          comment,
+          dateString
+        );
 
         commentsAdded++;
         toRemove.push(comment);
@@ -117,7 +101,7 @@ async function renderComments() {
         );
 
         if (parentComment) {
-          parentComment.appendChild(newComment(comment, dateString));
+          parentComment.innerHTML += newComment(comment, dateString);
 
           commentsAdded++;
           toRemove.push(comment);
@@ -187,15 +171,13 @@ function replyButtonListener(e) {
       comment.querySelector(".reply-window").remove();
       comment
         .querySelector(".content")
-        .insertAdjacentElement("afterend", replyButton);
+        .insertAdjacentHTML("afterend", replyButton);
     }
   });
 
   // Replace the reply button with a reply window
   comment.querySelector(".reply").remove();
-  comment
-    .querySelector(".content")
-    .insertAdjacentElement("afterend", replyWindow);
+  comment.querySelector(".content").insertAdjacentHTML("afterend", replyWindow);
 
   console.log(comment);
 
