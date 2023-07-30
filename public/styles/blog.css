@@ -1,226 +1,23 @@
-body {
-  background-color: #222222;
-}
-
-.wrapper {
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: 2rem;
-  overflow-x: visible;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pill {
-  position: fixed;
-  width: 175vh;
-  height: max(25vh, 15rem);
-  background-color: #d9d9d9;
-  border-radius: 10000rem;
-  opacity: 0.03;
-  translate: -50% -50%;
-  /* display: none; */
-  pointer-events: none;
-}
-
-.pill-1 {
-  top: 0;
-  left: 10vw;
-  rotate: 60deg;
-}
-
-.pill-2 {
-  top: 170vh;
-  right: -150vw;
-  rotate: -60deg;
-  display: none;
-}
-
-h1 {
-  font-size: clamp(2rem, 7vw, 3rem);
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-  line-height: 1.2;
-}
-
-h2 {
-  font-size: clamp(1.7rem, 5vw, 2rem);
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-}
-
-h3 {
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-}
-
-h4 {
-  font-size: 1.3rem;
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-}
-
-h5 {
-  font-size: 1rem;
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-}
-
-h6 {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  font-family: "Poiret One", sans-serif;
-  color: #aaa;
-  margin: 0;
-}
-
-p {
-  font-size: 1rem;
-  font-family: "Manrope", sans-serif;
-  color: #aaa;
-  padding-inline: 1rem;
-  margin-bottom: 1rem;
-}
-
-i {
-  font-style: italic;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-  text-decoration-color: #aaa;
-  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out,
-    text-decoration-thickness 0.2s ease-out;
-}
-
-a:is(:hover, :focus) {
-  text-decoration: underline;
-  color: #eee;
-  text-decoration-color: #eee;
-  text-decoration-thickness: 0.1rem;
-  text-decoration-thickness: 0.05rem;
-}
-
-a.inline-link {
-  /* text-decoration: underline; */
-  /* text-decoration-thickness: 0.05rem; */
-  filter: brightness(1.2);
-}
-
-li a.inline-link {
-  text-decoration: underline;
-  text-decoration-thickness: 0.05rem;
-  filter: brightness(1.1);
-}
-
 ul {
-  padding-inline-start: 0;
-  color: #aaa;
-  font-family: "Manrope", sans-serif;
   padding-left: 3rem;
-}
-
-ul.contents {
-  margin-bottom: 1rem;
-}
-
-.pop-over {
-  filter: brightness(1.2);
-  text-decoration: underline;
-  text-decoration-thickness: 0.05rem;
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
-}
-
-.pop-over:is(:hover, :focus) {
-  color: #eee;
-  text-decoration-color: #eee;
-  text-decoration-thickness: 0.05rem;
-  text-decoration: underline;
-}
-
-.pop-over > span {
-  opacity: 0;
-  display: flex;
-  background-color: #111;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  gap: 1rem;
-  border: 2px solid #222;
-  position: absolute;
-  top: -4.5rem;
-  width: 7rem;
-  left: 50%;
-  translate: -50% -30%;
-  pointer-events: none;
-  transition: translate 0.3s ease-out, opacity 0.4s ease-out;
-}
-
-.pop-over > span::before {
-  content: "";
-  position: absolute;
-  height: 150%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-}
-
-.pop-over > span::after {
-  content: "";
-  position: absolute;
-  height: 1rem;
-  width: 1rem;
-  background-color: #111;
-  rotate: 45deg;
-  bottom: 0;
-  left: 50%;
-  translate: -50% 50%;
-  pointer-events: none;
-}
-
-.pop-over:is(:hover, :focus) > span {
-  visibility: visible;
-  opacity: 1;
-  translate: -50% 0;
-  pointer-events: auto;
-}
-
-.pop-over:is(:hover, :focus) > span::before {
-  pointer-events: auto;
-}
-
-.pop-over img {
-  height: 2rem;
-  width: 2rem;
-  transition: transform 0.2s ease-out;
-  opacity: 0.2;
-  transition: opacity 0.2s ease-out;
-}
-
-.pop-over a:is(:hover, :focus) img {
-  opacity: 0.8;
-}
-
-.publish-info {
-  opacity: 0.8;
-  font-size: 0.9rem;
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 1rem;
-  position: relative;
-  top: 0.6rem;
 }
 
 .heading-image {
   padding-inline: 1rem;
 }
 
+.publish-info {
+  padding-inline: 1rem;
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.author {
+  margin-right: auto;
+}
+
 p.img-subtitle {
+  margin-top: 0.1rem;
   padding-left: 1rem;
   position: relative;
   font-size: 0.8rem;
@@ -393,6 +190,7 @@ textarea {
 }
 
 .comment-form span {
+  font-family: "Poiret One", sans-serif;
   position: absolute;
   left: 0;
   margin-block: 1.75rem;
@@ -427,31 +225,11 @@ textarea {
 }
 
 @media (min-width: 925px) {
-  .wrapper {
-    padding: 0 2rem;
-    overflow-x: visible;
-  }
-
-  .pill-2 {
-    display: block;
-    right: -60vw;
-    top: 140vh;
-  }
-
-  .landing > * {
-    margin: 0 2rem;
-  }
-
-  main {
+  .comment {
     max-width: 50rem;
   }
 
-  article {
-    padding-top: 2rem;
-    width: clamp(30rem, 85vw, 50rem);
-  }
-
-  .comment {
+  main {
     max-width: 50rem;
   }
 

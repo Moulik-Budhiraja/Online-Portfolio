@@ -1,3 +1,8 @@
+:root {
+  --link-color: #0086c4;
+  --link-hover-color: #41bdf7;
+}
+
 body {
   background-color: #222222;
 }
@@ -7,6 +12,9 @@ body {
   margin: 0 auto;
   padding: 2rem;
   overflow-x: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pill {
@@ -18,6 +26,7 @@ body {
   opacity: 0.03;
   translate: -50% -50%;
   /* display: none; */
+  pointer-events: none;
 }
 
 .pill-1 {
@@ -33,53 +42,33 @@ body {
   display: none;
 }
 
-.landing {
-  height: 100vh;
-  position: relative;
-}
-
-.left {
-  margin-top: 10vh;
-  margin-bottom: 25vh;
-}
-
-.socials {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  gap: 1.25rem;
-}
-
-.socials img {
-  height: 30px;
-  opacity: 0.2;
-  transition: opacity 0.2s ease-out;
-}
-
-.socials img:is(:hover, :focus) {
-  opacity: 1;
-}
-
-.title {
-  display: inline-block;
-  margin-bottom: 3rem;
-}
-
 h1 {
-  font-size: clamp(2rem, 13.5vw, 5rem);
+  font-size: clamp(2rem, 7vw, 3rem);
   font-family: "Poiret One", sans-serif;
   color: #eee;
+  line-height: 1.2;
 }
 
 h2 {
-  font-size: clamp(2.5rem, 11vw, 4rem);
+  font-size: clamp(1.7rem, 5vw, 2rem);
   font-family: "Poiret One", sans-serif;
   color: #eee;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-family: "Poiret One", sans-serif;
+  color: #eee;
+}
+
+h4 {
+  font-size: 1.3rem;
+  font-family: "Poiret One", sans-serif;
+  color: #eee;
+}
+
+h5 {
+  font-size: 1rem;
   font-family: "Poiret One", sans-serif;
   color: #eee;
 }
@@ -95,192 +84,50 @@ p {
   font-size: 1rem;
   font-family: "Manrope", sans-serif;
   color: #aaa;
+  padding-inline: 1rem;
+  margin-bottom: 1rem;
+}
+
+span {
+  font-size: 1rem;
+  font-family: "Manrope", sans-serif;
+  color: #aaa;
+}
+
+i {
+  font-style: italic;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
-  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out,
-    text-decoration-thickness 0.2s ease-out;
+  color: var(--link-color);
+  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
 }
 
 a:is(:hover, :focus) {
-  text-decoration: underline;
-  color: #eee;
-  text-decoration-color: #eee;
-  text-decoration-thickness: 0.1rem;
+  color: var(--link-hover-color);
 }
 
-a.inline-link {
-  text-decoration: underline;
-  text-decoration-thickness: 0.05rem;
-  filter: brightness(1.2);
-}
-
-.name {
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.stack {
-  font-size: clamp(1.2rem, 8vw, 2.5rem);
-  font-family: "Poiret One", sans-serif;
-  color: #ccc;
-  line-height: 1;
-  margin: 0.3rem 0 0.75rem 0;
-}
-
-.description {
-  margin-top: 3rem;
-  padding: 0 2rem;
-  position: relative;
-}
-
-.description::before {
-  content: "";
-  position: absolute;
-  top: -12.5%;
-  left: 0;
-  width: 0.1rem;
-  height: 125%;
-  background-color: #eee;
-}
-
-.right {
-  position: relative;
-  display: none;
-}
-
-.right h2 {
-  font-size: clamp(2.5rem, 4vw, 3rem);
-  font-family: "Poiret One", sans-serif;
-  color: #eee;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-.project-list {
-  position: relative;
-}
-
-.project-list li {
-  font-size: 1.5rem;
-  font-family: "Manrope", sans-serif;
+a.thematic {
   color: #aaa;
-  list-style: none;
-  line-height: 2;
-  text-align: center;
-  transition: color 0.2s ease-out;
 }
 
-.project-list a:is(:hover, :focus) li {
+a.thematic:is(:hover, :focus) {
   color: #eee;
 }
 
-.corner {
-  --corner-stroke-width: 0.1rem;
-
-  position: absolute;
-  top: -1rem;
-  width: 3rem;
-  aspect-ratio: 1;
-  background-color: #eee;
-  clip-path: polygon(
-    0 0,
-    0 100%,
-    var(--corner-stroke-width) 100%,
-    var(--corner-stroke-width) var(--corner-stroke-width),
-    100% var(--corner-stroke-width),
-    100% 0
-  );
+ul {
+  padding-inline-start: 0;
+  color: #aaa;
+  font-family: "Manrope", sans-serif;
 }
 
-.corner-end {
-  top: revert;
-  left: revert;
-  bottom: -1rem;
-  right: 0;
-  rotate: 180deg;
-}
-
-.down-arrow {
-  --corner-stroke-width: 0.05rem;
-  width: 1rem;
-  position: relative;
-  top: -16vh;
-  left: 50%;
-  translate: -50% 0;
-  rotate: 225deg;
-  animation: bob-up-down 1.5s ease-in-out infinite;
-}
-
-@keyframes bob-up-down {
-  0% {
-    translate: -50% 0;
-  }
-  50% {
-    translate: -50% 0.5rem;
-  }
-  100% {
-    translate: -50% 0;
-  }
-}
-
-.nail-braille .images {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  aspect-ratio: 1;
-  position: relative;
-  margin-block: 3rem;
-}
-
-/* Have the images stacked */
-.nail-braille .images img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 1rem;
-
-  /* Have all images square and zoom to make it possible */
-  aspect-ratio: 1;
-  object-position: center;
-  object-fit: cover;
-}
-
-.nail-braille .images::after {
-  content: "";
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  width: calc(100% - 2rem);
-  aspect-ratio: 1;
-  /*  Have a gradient from black to transparent from the bottom to 50% */
-  background: linear-gradient(
-    to bottom,
-    rgba(34, 34, 34, 0),
-    rgba(34, 34, 34, 0.5) 60%,
-    rgba(34, 34, 34, 0.7) 70%,
-    rgba(34, 34, 34, 1) 100%
-  );
-}
-
-.nail-braille .project-description {
-  max-width: min(80vw, 30rem);
-}
-
-.nail-braille .info-pane {
-  position: relative;
-  top: -10rem;
+ul.contents {
+  margin-bottom: 1rem;
 }
 
 .pop-over {
-  filter: brightness(1.2);
-  text-decoration: underline;
-  text-decoration-thickness: 0.05rem;
+  color: var(--link-color);
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -288,10 +135,8 @@ a.inline-link {
 }
 
 .pop-over:is(:hover, :focus) {
-  color: #eee;
-  text-decoration-color: #eee;
-  text-decoration-thickness: 0.05rem;
-  text-decoration: underline;
+  color: var(--link-hover-color);
+  text-decoration-color: currentColor;
 }
 
 .pop-over > span {
@@ -357,6 +202,60 @@ a.inline-link {
   opacity: 0.8;
 }
 
+form.form-control {
+  font-family: "Poiret One", sans-serif;
+  position: relative;
+}
+
+input.form-control,
+textarea.form-control {
+  width: 100%;
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
+  background: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.3rem;
+  outline: none;
+  color: #aaa;
+  font-family: "Manrope", sans-serif;
+  margin-block: 1rem;
+}
+
+form.form-control #submit {
+  transition: 0.3s;
+}
+
+form.form-control #submit:is(:hover, :focus) {
+  cursor: pointer;
+  background-color: #999;
+  color: #111;
+  letter-spacing: 0.1rem;
+}
+
+form.form-control span.form-control.input-label {
+  font-family: "Poiret One", sans-serif;
+  position: absolute;
+  left: 0;
+  margin-block: 1.75rem;
+  margin-inline: 1.25rem;
+  color: #999;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+form.form-control input.form-control:valid + span.form-control.input-label,
+form.form-control input.form-control:focus + span.form-control.input-label,
+form.form-control textarea.form-control:valid + span.form-control.input-label,
+form.form-control textarea.form-control:focus + span.form-control.input-label {
+  color: #eee;
+  translate: 0rem -1.5rem;
+  padding: 0 0.5rem;
+  background-color: #222222;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.1rem;
+}
+
 @media (min-width: 925px) {
   .wrapper {
     padding: 0 2rem;
@@ -369,101 +268,12 @@ a.inline-link {
     top: 140vh;
   }
 
-  .landing {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .landing > * {
     margin: 0 2rem;
   }
 
-  .socials {
-    position: static;
-    top: 0;
-    right: 0;
-    justify-content: center;
-    padding: 1rem 0 0 0;
-  }
-
-  .left {
-    margin-top: 0;
-    width: clamp(30rem, 60%, 40rem);
-  }
-
-  .title {
-    margin-bottom: 0;
-  }
-
-  .name {
-    font-size: clamp(5rem, 8vw, 6rem);
-  }
-
-  .stack {
-    font-size: clamp(2.5rem, 4vw, 3rem);
-    text-align: center;
-    margin: 0;
-  }
-
-  .right {
-    display: block;
-  }
-
-  .right h2 {
-    left: -1.5rem;
-  }
-
-  .corner {
-    left: -1.5rem;
-  }
-
-  .corner-end {
-    left: revert;
-    right: -1.5rem;
-  }
-
-  .down-arrow {
-    display: none;
-  }
-
-  .nail-braille {
-    max-height: 80vh;
-  }
-
-  .nail-braille .project-description {
-    max-width: min(40vw, 30rem);
-  }
-
-  .nail-braille .images {
-    aspect-ratio: unset;
-    height: max(70vh, 45rem);
-    margin-block: 0rem;
-  }
-
-  .nail-braille .images img {
-    padding: 5rem;
-  }
-
-  .nail-braille .images::after {
-    content: "";
-    position: absolute;
-    top: 5rem;
-    left: 5rem;
-    width: calc(100% - 10rem);
-    height: calc(max(70vh, 45rem) - 10rem);
-    /*  Have a gradient from black to transparent from the bottom to 50% */
-    background: linear-gradient(
-      to bottom,
-      rgba(34, 34, 34, 0),
-      rgba(34, 34, 34, 0.5) 60%,
-      rgba(34, 34, 34, 0.7) 70%,
-      rgba(34, 34, 34, 1) 100%
-    );
-  }
-
-  .nail-braille .info-pane {
-    position: relative;
-    top: -15rem;
+  article {
+    padding-top: 2rem;
+    width: clamp(30rem, 85vw, 50rem);
   }
 }
