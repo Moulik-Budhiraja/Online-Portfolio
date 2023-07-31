@@ -2,6 +2,9 @@ import express from "express";
 import prisma from "./db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import config from "./config/config";
+import { authenticateToken } from "./middleware/authMiddleware";
+import { AuthRequest } from "./types/requestTypes";
 
 const router = express.Router();
 
@@ -100,8 +103,16 @@ router.post("/login", async (req, res) => {
     return;
   }
 
+  // Create a JWT
+  const accessToken = jwt.sign(
+    {
+      userId: user.id,
+    },
+    config.ACCESS_TOKEN_SECRET
+  );
+
   return res.status(200).json({
-    message: "Logged in successfully",
+    accessToken: accessToken,
   });
 });
 

@@ -2,8 +2,9 @@ import express from "express";
 import path from "path";
 import bodyParser from "body-parser";
 import prisma from "./db";
-import auth from "./auth";
-import api from "./api";
+import authRoutes from "./auth";
+import apiRoutes from "./api";
+import adminRoutes from "./admin";
 
 const app = express();
 const port = 3000;
@@ -18,8 +19,9 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.status(500).send("Something broke!");
 });
 
-app.use("/", auth);
-app.use("/api", api);
+app.use("/", authRoutes);
+app.use("/api", apiRoutes);
+app.use("/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
