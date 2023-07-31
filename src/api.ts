@@ -1,6 +1,5 @@
 import express from "express";
 import prisma from "./db";
-import bodyParser from "body-parser";
 
 const router = express.Router();
 
@@ -34,7 +33,7 @@ router.get("/blog/file/:filename", async (req, res) => {
 });
 
 // Create a new comment
-router.post("/blog/:blogId/comment", bodyParser.json(), async (req, res) => {
+router.post("/blog/:blogId/comment", async (req, res) => {
   const blogId = req.params.blogId;
   const { title, name, content, parentId } = req.body;
 

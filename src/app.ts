@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import bodyParser from "body-parser";
 import prisma from "./db";
 import auth from "./auth";
 import api from "./api";
@@ -7,8 +8,10 @@ import api from "./api";
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, "../public")));
 app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "../public")));
+app.use(bodyParser.json());
 
 app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);
