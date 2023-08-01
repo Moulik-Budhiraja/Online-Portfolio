@@ -1,16 +1,24 @@
-import express from "express";
+import express, { Response } from "express";
 import prisma from "./db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "./config/config";
-import { authenticateToken } from "./middleware/authMiddleware";
+import {
+  authenticateToken,
+  authenticateUser,
+  preventAuthenticated,
+} from "./middleware/authMiddleware";
 import { AuthRequest } from "./types/requestTypes";
 
 const router = express.Router();
 
-router.get("/register", (req, res) => {
-  res.render("auth/register");
-});
+router.get(
+  "/register",
+  preventAuthenticated,
+  (req: AuthRequest, res: Response) => {
+    res.render("auth/register");
+  }
+);
 
 router.post("/register", async (req, res) => {
   // Check if a user with the same email exists
@@ -56,12 +64,18 @@ router.post("/register", async (req, res) => {
 
   console.log(newUser);
 
-  res.json(newUser);
+  res.json({
+    user: newUser,
+  });
 });
 
-router.get("/login", (req, res) => {
-  res.render("auth/login");
-});
+router.get(
+  "/login",
+  preventAuthenticated,
+  (req: AuthRequest, res: Response) => {
+    res.render("auth/login");
+  }
+);
 
 router.post("/login", async (req, res) => {
   // Check if a user with the same email exists
@@ -78,14 +92,7 @@ router.post("/login", async (req, res) => {
     },
   });
 
-  if (!user) {
-    res.status(404).json({
-      error: "User with this email does not exist",
-    });
-    return;
-  }
-
-  if (!user.Auth) {
+  if (!user || !user.Auth) {
     res.status(404).json({
       error: "User with this email does not exist",
     });
@@ -105,15 +112,143 @@ router.post("/login", async (req, res) => {
 
   // Create a JWT
   const accessToken = jwt.sign(
-    {
-      userId: user.id,
-    },
-    config.ACCESS_TOKEN_SECRET
+    { userId: user.id },
+    config.ACCESS_TOKEN_SECRET,
+    { expiresIn: "15m" }
   );
 
+  const refreshToken = jwt.sign(
+    { userId: user.id },
+    config.REFRESH_TOKEN_SECRET
+  );
+
+  // Store the refresh token in the database
+  await prisma.refreshToken.create({
+    data: {
+      token: refreshToken,
+      user: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+  });
+
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 1000 * 60 * 15, // 15 minutes
+  });
+
   return res.status(200).json({
-    accessToken: accessToken,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
   });
 });
+
+router.get("/refresh", async (req, res) => {
+  const redirect = req.query.redirect;
+  const refreshToken: string | null = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.sendStatus(400);
+  }
+
+  const token = await prisma.refreshToken.findUnique({
+    where: {
+      token: refreshToken,
+    },
+  });
+
+  if (!token) {
+    return res.sendStatus(400);
+  }
+
+  jwt.verify(token.token, config.REFRESH_TOKEN_SECRET, (err, data) => {
+    if (err) res.sendStatus(401);
+    if (!data || typeof data === "string") {
+      new Error("Data is undefined");
+      return res.sendStatus(500);
+    }
+
+    const accessToken = jwt.sign(
+      { userId: data.userId },
+      config.ACCESS_TOKEN_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 15, // 15 minutes
+    });
+
+    if (redirect) {
+      return res.redirect(redirect as string);
+    } else {
+      return res.redirect("/");
+    }
+  });
+});
+
+router.delete("/logout", authenticateUser, async (req: AuthRequest, res) => {
+  const refreshToken: string | undefined = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.sendStatus(400);
+  }
+
+  const token = await prisma.refreshToken.findUnique({
+    where: {
+      token: refreshToken,
+    },
+  });
+
+  if (!token) {
+    return res.sendStatus(400);
+  }
+
+  await prisma.refreshToken.delete({
+    where: {
+      token: refreshToken,
+    },
+  });
+
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+
+  return res.sendStatus(204);
+});
+
+router.delete(
+  "/logout/all",
+  authenticateUser,
+  async (req: AuthRequest, res) => {
+    if (!req.user) {
+      return res.sendStatus(400);
+    }
+
+    await prisma.refreshToken.deleteMany({
+      where: {
+        userId: req.user.id,
+      },
+    });
+
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    return res.sendStatus(204);
+  }
+);
 
 export default router;

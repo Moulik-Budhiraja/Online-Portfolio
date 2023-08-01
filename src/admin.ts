@@ -13,7 +13,6 @@ router.get(
   "/",
   [authenticateToken, authenticateAdmin],
   (req: AuthRequest, res: Response) => {
-    console.log(req.user);
     res.render("admin/index");
   }
 );

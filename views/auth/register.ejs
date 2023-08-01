@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/style.css" />
-    <link rel="stylesheet" href="/styles/auth/login.css" />
+    <link rel="stylesheet" href="/styles/auth/register.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,14 +17,24 @@
     />
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="module" src="/scripts/auth/login.js" defer></script>
+    <script type="module" src="/scripts/auth/register.js" defer></script>
 
-    <title>Moulik's Blog | Login</title>
+    <title>Moulik's Blog | Register</title>
   </head>
   <body>
     <div class="wrapper">
-      <h1>Login</h1>
+      <h1>Register</h1>
       <form action="#" class="form-control">
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            required
+          />
+          <span class="form-control input-label">Name</span>
+        </div>
         <div>
           <input
             type="email"
@@ -46,7 +56,12 @@
           <span class="form-control input-label">Password</span>
         </div>
         <span class="error-msg"></span>
-        <input type="submit" class="form-control" id="submit" value="Login" />
+        <input
+          type="submit"
+          class="form-control"
+          id="submit"
+          value="Register"
+        />
       </form>
     </div>
   </body>
