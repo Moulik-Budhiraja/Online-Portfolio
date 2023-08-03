@@ -12,8 +12,9 @@ form {
   flex: 1;
 }
 
-.search-btn {
-  flex: 0 0 10rem;
+form .search-btn {
+  flex: 0 0 7rem;
+  font-family: "Poiret One", sans-serif;
 }
 
 .blog {
@@ -25,6 +26,7 @@ form {
   gap: 1rem;
   padding: 1rem;
   transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: #222;
 }
 
 a:is(:hover, :focus) .blog {
@@ -65,5 +67,9 @@ a:is(:hover, :focus) .blog {
 
   .blog-details {
     width: 70%;
+  }
+
+  form .search-btn {
+    flex: 0 0 10rem;
   }
 }
