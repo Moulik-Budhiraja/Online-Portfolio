@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.4.1
+    image: portfolio-site:0.4.2
     ports:
       - "9842:3000"
     environment:
@@ -28,6 +28,9 @@ services:
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
       - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
       - TZ=${TZ}
+
+    volumes:
+      - ${IMAGE_VOLUME_PATH}:/usr/app/images
 
     depends_on:
       - database
