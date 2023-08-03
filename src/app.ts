@@ -9,6 +9,9 @@ import imageRoutes from "./images";
 import cookieParser from "cookie-parser";
 import { authenticateToken } from "./middleware/authMiddleware";
 import { AuthRequest } from "./types/requestTypes";
+import startup from "./startup";
+
+startup();
 
 const app = express();
 const port = 3000;
