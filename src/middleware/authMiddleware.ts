@@ -71,6 +71,10 @@ export async function authenticateToken(
     const refreshToken: string | undefined = req.cookies.refreshToken;
 
     if (refreshToken && (await checkRefreshValidity(refreshToken))) {
+      if (req.originalUrl.startsWith("/refresh")) {
+        return next();
+      }
+
       return res.redirect(`/refresh?redirect=${req.originalUrl}`);
     } else {
       req.user = undefined;

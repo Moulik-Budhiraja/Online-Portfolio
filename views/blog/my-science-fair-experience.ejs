@@ -17,6 +17,7 @@
     />
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/blog.js" defer></script>
 
     <title>Moulik's Blog | My Science Fair Experience</title>
@@ -31,13 +32,23 @@
           <span class="publish-info">
             <span class="author"
               ><a href="/" class="thematic">Moulik Budhiraja</a></span
-            ><span class="time">10:31 PM | June 26, 2023</span>
+            >
+
+            <span class="time"
+              ><%= blog.createdAt.toLocaleString('en-US', { hour: 'numeric',
+              minute: 'numeric', hour12: true }) + " | " +
+              blog.createdAt.toLocaleString('en-US', { month: 'long', day:
+              'numeric', year: 'numeric' }) %></span
+            >
           </span>
-          <img
-            class="heading-image"
-            src="/images/blog/my-science-fair-experience/platinum winners.webp"
-            alt="Image of me and my partner standing alongside the other platinum winners at the Canada Wide Science Fair"
-          />
+
+          <div class="blur-load heading-image">
+            <img
+              src="/image/platinum-winners"
+              alt="Platinum Winners of the 2023 Canada Wide Science Fair in Edmonton,
+            AB."
+            />
+          </div>
           <p class="img-subtitle">
             Platinum Winners of the 2023 Canada Wide Science Fair in Edmonton,
             AB.

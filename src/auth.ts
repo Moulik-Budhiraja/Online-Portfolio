@@ -54,7 +54,7 @@ router.post("/register", async (req, res) => {
     data: {
       email: email,
       name: name,
-      Auth: {
+      auth: {
         create: {
           passwordHash: hashedPassword,
         },
@@ -88,11 +88,11 @@ router.post("/login", async (req, res) => {
       email: email,
     },
     include: {
-      Auth: true,
+      auth: true,
     },
   });
 
-  if (!user || !user.Auth) {
+  if (!user || !user.auth) {
     res.status(404).json({
       error: "User with this email does not exist",
     });
@@ -100,7 +100,7 @@ router.post("/login", async (req, res) => {
   }
 
   // Check if the password is correct
-  const passwordHash = user.Auth.passwordHash;
+  const passwordHash = user.auth.passwordHash;
 
   const isPasswordCorrect = await bcrypt.compare(password, passwordHash);
   if (!isPasswordCorrect) {

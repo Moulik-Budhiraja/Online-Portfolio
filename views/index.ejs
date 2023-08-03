@@ -24,7 +24,8 @@
   <body>
     <div class="wrapper">
       <% if (user) { %>
-      <a href="#" class="logout-btn thematic">Logout</a>
+
+      <a href="#" class="logout-btn thematic">Logout: <%= user.name %></a>
       <% } %>
       <main>
         <div class="pill pill-1"></div>

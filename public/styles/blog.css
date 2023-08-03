@@ -3,7 +3,7 @@ ul {
 }
 
 .heading-image {
-  padding-inline: 1rem;
+  margin-inline: 1rem;
 }
 
 .publish-info {
@@ -154,15 +154,18 @@ p.img-subtitle {
 }
 
 .comment > .header > .timestamp {
-  font-size: 0.8rem;
-  font-style: italic;
   opacity: 0.8;
   margin-left: auto;
-  font-family: "Poiret One", sans-serif;
-  color: #aaa;
-  letter-spacing: -0.03rem;
   padding-left: 3rem;
   padding-right: 0.5rem;
+}
+
+.comment > .header > .timestamp > span {
+  font-family: "Poiret One", sans-serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #aaa;
+  letter-spacing: -0.03rem;
 }
 
 .comment-form {

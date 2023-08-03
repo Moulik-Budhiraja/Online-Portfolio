@@ -19,12 +19,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:0.3.0
+    image: portfolio-site:0.4.0
     ports:
       - "9842:3000"
     environment:
       - MYSQL_HOST=database
       - DATABASE_URL=${DATABASE_URL}
+      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
       - TZ=${TZ}
 
     depends_on:

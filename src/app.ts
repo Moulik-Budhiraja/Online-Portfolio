@@ -5,6 +5,7 @@ import prisma from "./db";
 import authRoutes from "./auth";
 import apiRoutes from "./api";
 import adminRoutes from "./admin";
+import imageRoutes from "./images";
 import cookieParser from "cookie-parser";
 import { authenticateToken } from "./middleware/authMiddleware";
 import { AuthRequest } from "./types/requestTypes";
@@ -27,6 +28,7 @@ app.use((err: any, req: any, res: any, next: any) => {
 app.use("/", authRoutes);
 app.use("/api", apiRoutes);
 app.use("/admin", adminRoutes);
+app.use("/image", imageRoutes);
 
 app.get("/", (req: AuthRequest, res) => {
   res.render("index", {
@@ -34,11 +36,37 @@ app.get("/", (req: AuthRequest, res) => {
   });
 });
 
-app.get("/blog/:title", (req, res) => {
-  // Check if title exists in the file system
-  const title = req.params.title;
+app.get("/blog/:slug", async (req, res) => {
+  // Check if slug exists in the file system
+  const slug = req.params.slug;
 
-  res.render(`blog/${title}`);
+  const blog = await prisma.blog.findUnique({
+    where: {
+      slug: slug,
+    },
+  });
+
+  res.render(`blog/${slug}`, {
+    blog: blog,
+  });
+});
+
+app.get("/blog", async (req, res) => {
+  const searchQuery = req.query.search;
+
+  const blogs = await prisma.blog.findMany({
+    where: {
+      title: {
+        contains: searchQuery ? searchQuery.toString() : "",
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 10,
+  });
+
+  res.render("blogs", { blogs });
 });
 
 app.listen(port, () => {

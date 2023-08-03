@@ -2,9 +2,9 @@ import { newComment } from "./components/comment.js";
 import { replyButton, replyWindow } from "./components/replyActions.js";
 
 async function getBlogId() {
-  const blogFilename = window.location.pathname.split("/").pop();
+  const blogSlug = window.location.pathname.split("/").pop();
 
-  const response = await axios.get(`/api/blog/file/${blogFilename}`);
+  const response = await axios.get(`/api/blog/file/${blogSlug}`);
 
   return response.data.id;
 }

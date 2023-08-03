@@ -23,5 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 *.env
+
+# Development
 db
 test
+images/full/*
+images/small/*
+images/temp/*
