@@ -14,7 +14,7 @@ body {
 }
 
 .landing {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -74,7 +74,7 @@ h3 {
 
 .description {
   margin-top: 3rem;
-  padding: 0 2rem;
+  padding-inline-start: 2rem;
   position: relative;
 }
 
@@ -299,6 +299,7 @@ h3 {
     aspect-ratio: unset;
     height: max(70vh, 45rem);
     margin-block: 0rem;
+    margin-block-start: -5rem;
   }
 
   .nail-braille .images img {
