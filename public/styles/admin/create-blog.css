@@ -1,0 +1,19 @@
+form {
+  max-width: 50rem;
+  margin-inline: auto;
+  margin-top: 1rem;
+}
+
+.blog-headers {
+  display: flex;
+  gap: 1rem;
+}
+
+.blog-headers > div {
+  position: relative;
+  width: 100%;
+}
+
+input[type="submit"] {
+  max-width: 10rem;
+}

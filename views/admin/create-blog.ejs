@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/admin/create-blog.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope&family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/admin/create-blog.js" defer></script>
+
+    <title>Moulik's Blog | Admin - Blogs</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main>
+        <h1>Create Blog</h1>
+        <form action="/admin/blogs/create" method="POST" class="form-control">
+          <div class="blog-headers">
+            <div>
+              <input type="text" class="form-control" id="title" required />
+              <span class="form-control input-label">Title</span>
+            </div>
+            <div>
+              <input type="text" class="form-control" id="slug" required />
+              <span class="form-control input-label">Slug</span>
+            </div>
+          </div>
+          <div>
+            <textarea
+              type="text"
+              class="form-control"
+              rows="5"
+              required
+            ></textarea>
+            <span class="form-control input-label">Description</span>
+          </div>
+          <input type="submit" value="Create" class="form-control" />
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/blog.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope&family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/blog.js" defer></script>
+
+    <title>Moulik's Blog | Admin Preview | <%= blog.title %></title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main>
+        <div class="pill pill-1"></div>
+        <div class="pill pill-2"></div>
+        <article>
+          <h1><%= blog.title %></h1>
+          <span class="publish-info">
+            <span class="author"
+              ><a href="/" class="thematic"><%= blog.author.name %></a></span
+            >
+
+            <span class="time"
+              ><%= blog.createdAt.toLocaleString('en-US', { hour: 'numeric',
+              minute: 'numeric', hour12: true }) + " | " +
+              blog.createdAt.toLocaleString('en-US', { month: 'long', day:
+              'numeric', year: 'numeric' }) %></span
+            >
+          </span>
+
+          <% if (blog.headerImage) { %>
+
+          <div class="blur-load heading-image">
+            <img src=<%= `/image/${blog.headerImage.filename}` %> alt="<%=
+            `${blog.headerImageSubtitle}` %>" />
+          </div>
+
+          <p class="img-subtitle"><%= blog.headerImageSubtitle %></p>
+          <% } %> <%- blog.content %>
+        </article>
+        <div class="comments">
+          <h1>Comments</h1>
+
+          <div class="comment-container"></div>
+
+          <h3>Create</h3>
+          <form action="#" method="post" class="comment-form">
+            <input
+              type="name"
+              name="name"
+              id="name"
+              required="required"
+              maxlength="25"
+            />
+            <span>Name</span>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required="required"
+              maxlength="40"
+            />
+            <span>Title</span>
+            <textarea
+              name="content"
+              id="content"
+              required="required"
+              rows="5"
+              maxlength="2000"
+            ></textarea>
+            <span>Body</span>
+
+            <input type="submit" id="submit" value="Submit" />
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

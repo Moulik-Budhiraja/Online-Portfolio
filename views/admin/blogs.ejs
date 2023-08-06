@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
     <script type="module" src="/scripts/main.js" defer></script>
     <script type="module" src="/scripts/admin/blogs.js" defer></script>
 
@@ -25,7 +25,10 @@
   <body>
     <div class="wrapper">
       <main>
-        <h1>Blogs</h1>
+        <div class="heading">
+          <h1>Blogs</h1>
+          <a href="/admin/blogs/create" class="btn create-btn">Create</a>
+        </div>
         <form action="" class="form-control">
           <div class="search-bar">
             <input type="text" class="form-control" required />
@@ -36,7 +39,7 @@
 
         <div class="blogs">
           <% for (let blog of blogs) { %>
-          <a href=<%- `/admin/blogs/edit/${blog.id}` %> class="edit-blog">
+          <a href=<%- `/admin/blogs/edit/${blog.slug}` %> class="edit-blog">
               <div class="blog">
                 <div class="blog-img blur-load">
                   <img src="/image/platinum-winners" alt="" />

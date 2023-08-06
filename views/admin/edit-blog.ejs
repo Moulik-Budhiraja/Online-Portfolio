@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/admin/edit-blog.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope&family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href=" https://cdn.jsdelivr.net/npm/ace-builds@1.23.4/css/ace.min.css "
+      rel="stylesheet"
+      defer
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+
+    <script
+      src=" https://cdn.jsdelivr.net/npm/ace-builds@1.23.4/src-min-noconflict/ace.min.js "
+      defer
+    ></script>
+    <script type="module" src="/scripts/main.js" defer></script>
+    <script type="module" src="/scripts/admin/edit-blog.js" defer></script>
+
+    <title>Moulik's Blog | Admin - Blogs</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main>
+        <input type="hidden" id="blogId" name="blogId" value="<%= blog.id %>" />
+        <h1>Edit Blog</h1>
+        <div id="editor"><%= blog.draft.content %></div>
+        <div class="action-buttons">
+          <button class="btn" id="save">Save</button>
+          <button class="btn" id="save-version">Save Version</button>
+          <a
+            href="<%= `/admin/blogs/preview/${blog.slug}` %>"
+            target="_blank"
+            class="btn"
+            >Preview</a
+          >
+          <button class="btn" id="publish">Publish</button>
+        </div>
+      </main>
+    </div>
+    <div class="save-version-menu">
+      <form action="#" class="form-control">
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            id="version-name"
+            required
+          /><span class="form-control input-label">Version Name</span>
+        </div>
+        <input type="submit" value="Save" class="form-control" />
+      </form>
+    </div>
+  </body>
+</html>

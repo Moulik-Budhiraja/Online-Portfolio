@@ -5,6 +5,7 @@ import sharp from "sharp";
 import { authenticateAdmin } from "./middleware/authMiddleware";
 import { AuthRequest } from "./types/requestTypes";
 import fs from "fs";
+import md from "./helpers/md_renderer";
 
 const router = express.Router();
 const images = multer({ dest: "images/temp" });
@@ -197,6 +198,164 @@ router.delete(
     } catch (err) {
       res.status(500).json({
         error: "Error deleting image",
+      });
+    }
+  }
+);
+
+router.post(
+  "/blog/save-draft",
+  authenticateAdmin,
+  async (req: AuthRequest, res) => {
+    const { blogId, content, versionName } = req.body;
+
+    if (!req.user) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    try {
+      const blog = await prisma.blog.findUnique({
+        where: {
+          id: blogId,
+        },
+        include: {
+          draft: true,
+        },
+      });
+
+      if (!blog) {
+        return res.status(404).json({
+          error: "Blog not found",
+        });
+      }
+
+      if (blog.authorId !== req.user.id) {
+        return res.status(401).json({
+          error: "Unauthorized",
+        });
+      }
+
+      let draft;
+
+      if (blog.draft) {
+        draft = await prisma.blogDraft.update({
+          where: {
+            id: blog.draft.id,
+          },
+          data: {
+            content: content,
+          },
+        });
+      } else {
+        draft = await prisma.blogDraft.create({
+          data: {
+            content: content,
+            blog: {
+              connect: {
+                id: blogId,
+              },
+            },
+          },
+        });
+      }
+
+      if (versionName) {
+        await prisma.blogVersion.create({
+          data: {
+            versionName: versionName,
+            content: content,
+            draft: {
+              connect: {
+                id: draft.id,
+              },
+            },
+          },
+        });
+      }
+
+      return res.status(201).json({
+        message: "Draft saved",
+      });
+    } catch (err) {
+      res.status(500).json({
+        error: "Error saving draft",
+      });
+    }
+  }
+);
+
+router.post(
+  "/blog/publish",
+  authenticateAdmin,
+  async (req: AuthRequest, res) => {
+    const { blogId } = req.body;
+
+    if (!req.user) {
+      return res.status(401).json({
+        error: "Unauthorized",
+      });
+    }
+
+    try {
+      const blog = await prisma.blog.findUnique({
+        where: {
+          id: blogId,
+        },
+        include: {
+          draft: {
+            include: {
+              versions: true,
+            },
+          },
+        },
+      });
+
+      if (!blog) {
+        return res.status(404).json({
+          error: "Blog not found",
+        });
+      }
+
+      if (blog.authorId !== req.user.id) {
+        return res.status(401).json({
+          error: "Unauthorized",
+        });
+      }
+
+      if (!blog.draft) {
+        return res.status(400).json({
+          error: "No draft found",
+        });
+      }
+
+      if (blog.draft.versions.length === 0) {
+        return res.status(400).json({
+          error: "No versions found",
+        });
+      }
+
+      const latestVersion = blog.draft.versions.reduce((prev, current) => {
+        return prev.createdAt > current.createdAt ? prev : current;
+      });
+
+      await prisma.blog.update({
+        where: {
+          id: blogId,
+        },
+        data: {
+          published: true,
+          content: md.render(latestVersion.content),
+        },
+      });
+
+      return res.status(201).json({
+        message: "Blog published",
+      });
+    } catch (err) {
+      res.status(500).json({
+        error: "Error publishing blog",
       });
     }
   }

@@ -1,7 +1,3 @@
-main {
-  margin-top: 1rem;
-}
-
 form {
   max-width: 50rem;
   display: flex;
@@ -15,6 +11,12 @@ form {
 form .search-btn {
   flex: 0 0 7rem;
   font-family: "Poiret One", sans-serif;
+}
+
+.blogs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .blog {
@@ -54,6 +56,16 @@ a:is(:hover, :focus) .blog {
   position: absolute;
   bottom: 0rem;
   right: 0.5rem;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-btn {
+  max-width: 7rem;
 }
 
 @media screen and (min-width: 768px) {

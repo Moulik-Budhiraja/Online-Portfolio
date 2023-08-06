@@ -47,9 +47,13 @@ app.get("/blog/:slug", async (req, res) => {
     where: {
       slug: slug,
     },
+    include: {
+      author: true,
+      headerImage: true,
+    },
   });
 
-  res.render(`blog/${slug}`, {
+  res.render(`blog`, {
     blog: blog,
   });
 });
@@ -59,8 +63,11 @@ app.get("/blog", async (req, res) => {
 
   const blogs = await prisma.blog.findMany({
     where: {
-      title: {
-        contains: searchQuery ? searchQuery.toString() : "",
+      AND: {
+        title: {
+          contains: searchQuery ? searchQuery.toString() : "",
+        },
+        published: true,
       },
     },
     orderBy: {

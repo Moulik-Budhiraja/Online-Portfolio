@@ -186,10 +186,16 @@ textarea {
   color: #aaa;
   font-family: "Manrope", sans-serif;
   margin-block: 1rem;
+  transition: border 0.3s ease-out;
 }
 
 .comment-form > textarea {
   resize: vertical;
+}
+
+.comment-form > input:focus,
+textarea:focus {
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .comment-form span {
@@ -218,16 +224,18 @@ textarea {
 
 .comment-form #submit {
   transition: 0.3s;
+  font-family: "Poiret One", sans-serif;
 }
 
 .comment-form #submit:is(:hover, :focus) {
   cursor: pointer;
-  background-color: #999;
-  color: #111;
+  background-color: #333;
+  color: #eee;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   letter-spacing: 0.1rem;
 }
 
-@media (min-width: 925px) {
+@media (min-width: 768px) {
   .comment {
     max-width: 50rem;
   }
