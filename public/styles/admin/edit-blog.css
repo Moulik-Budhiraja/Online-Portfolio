@@ -9,13 +9,15 @@ main {
   flex-direction: column;
 }
 
-textarea {
-  width: 100%;
-  margin-top: 2rem;
-  background-color: #222;
-  border: none;
-  outline: none;
-  resize: none;
+.heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.heading .btn {
+  max-width: 10rem;
+  margin: 0;
 }
 
 #editor {
@@ -60,7 +62,7 @@ textarea {
   transition: opacity 0.3s ease-in-out;
 }
 
-.save-version-menu.visible {
+.save-version-menu:focus-within {
   opacity: 1;
   pointer-events: auto;
 }
@@ -74,6 +76,115 @@ textarea {
 .save-version-menu input[type="submit"] {
   max-width: 10rem;
   margin: 0 auto;
+}
+
+.blog-config {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  background-color: #222;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.3rem;
+  padding: 1rem;
+  width: clamp(25rem, 50%, 50rem);
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.config-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.config-header .btn {
+  max-width: 10rem;
+  margin: 0;
+}
+
+.general-label {
+  margin-bottom: 0.5rem;
+}
+
+.header-img {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1rem;
+}
+
+.header-img input {
+  margin-block: 1rem;
+}
+
+.blog-config .action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.blog-config .action-buttons button {
+  max-width: 10rem;
+}
+
+div.img-picker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: clamp(20%, 50%, 40rem);
+  height: 80vh;
+  background-color: #222;
+  border-radius: 0.3rem;
+  padding: 1rem;
+  border: 1px solid #333;
+  overflow-y: scroll;
+}
+
+form.img-picker {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1rem;
+}
+
+.images {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  /* grid-auto-rows: minmax(10rem, 1fr); */
+  gap: 1rem;
+}
+
+.images .image::before {
+  content: "";
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.images .image {
+  width: 100%;
+  /* height: 100%; */
+  aspect-ratio: 1/1;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  position: relative;
+  transition: translate 0.3s ease-in-out, scale 0.3s ease-in-out,
+    width 0.3s ease-in-out, aspect-ratio 0.3s ease-in-out;
+}
+
+.images .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.images .image:hover {
+  translate: 0 -0.5rem;
+  scale: 1.1;
+  width: 120%;
+  aspect-ratio: unset;
 }
 
 @media (min-width: 768px) {

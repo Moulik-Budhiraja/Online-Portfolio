@@ -203,6 +203,29 @@ router.delete(
   }
 );
 
+router.get("/images", async (req, res) => {
+  if (req.query.filename == undefined) {
+    res.status(400).json({
+      error: "No filename provided",
+    });
+    return;
+  }
+
+  const images = await prisma.image.findMany({
+    where: {
+      filename: {
+        contains: req.query.filename as string,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: req.query.limit ? Number.parseInt(req.query.limit as string) : 25,
+  });
+
+  res.json(images);
+});
+
 router.post(
   "/blog/save-draft",
   authenticateAdmin,

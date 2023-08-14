@@ -39,7 +39,10 @@
     <div class="wrapper">
       <main>
         <input type="hidden" id="blogId" name="blogId" value="<%= blog.id %>" />
-        <h1>Edit Blog</h1>
+        <div class="heading">
+          <h1>Edit Blog</h1>
+          <button class="btn">Configure</button>
+        </div>
         <div id="editor"><%= blog.draft.content %></div>
         <div class="action-buttons">
           <button class="btn" id="save">Save</button>
@@ -66,6 +69,75 @@
         </div>
         <input type="submit" value="Save" class="form-control" />
       </form>
+    </div>
+
+    <div class="blog-config">
+      <div class="config-header">
+        <h2>Config</h2>
+        <button class="btn">Delete</button>
+      </div>
+      <h4 class="general-label">General</h4>
+      <form action="#" class="form-control">
+        <div>
+          <input
+            type="text"
+            class="form-control"
+            id="blog-title"
+            required
+            value="<%= blog.title %>"
+          /><span class="form-control input-label">Title</span>
+        </div>
+        <div>
+          <textarea
+            type="text"
+            class="form-control"
+            id="blog-description"
+            required
+          >
+<%= blog.description %></textarea
+          >
+          <span class="form-control input-label">Description</span>
+        </div>
+
+        <h4>Header Image</h4>
+        <div class="header-img">
+          <button class="btn">Select</button>
+          <input
+            type="text"
+            class="form-control"
+            id="header-img-filename"
+            value="<%= blog?.headerImage?.filename %>"
+            disabled
+          />
+        </div>
+        <div>
+          <textarea
+            name="header-img-subtitle"
+            id="header-img-subtitle"
+            class="form-control"
+          >
+<%= blog.headerImageSubtitle %></textarea
+          >
+          <span class="form-control input-label">Subtitle</span>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn" type="button">Cancel</button>
+          <button class="btn">Save</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="img-picker">
+      <h2>Select Image</h2>
+      <form action="#" class="form-control img-picker">
+        <div class="search-bar">
+          <input type="text" class="form-control" required />
+          <span class="form-control input-label">Search</span>
+        </div>
+        <input type="submit" class="form-control" value="Search" />
+      </form>
+      <div class="images"></div>
     </div>
   </body>
 </html>

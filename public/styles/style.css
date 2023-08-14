@@ -266,6 +266,17 @@ textarea.form-control {
   transition: border 0.3s ease-out;
 }
 
+textarea.form-control {
+  resize: vertical;
+}
+
+input.form-control:disabled,
+textarea.form-control:disabled {
+  background-color: #222;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #999;
+}
+
 form.form-control input[type="submit"] {
   transition: 0.3s;
   font-family: "Poiret One", sans-serif;
@@ -355,6 +366,7 @@ input[type="file"].form-control {
   width: auto;
   position: relative;
   overflow: hidden;
+  display: grid;
 }
 
 .blur-load > img {
@@ -362,17 +374,18 @@ input[type="file"].form-control {
   display: block;
   object-position: center;
   object-fit: cover;
-  position: relative;
+  grid-area: 1 / 1 / 2 / 2;
   /* opacity: 0; */
 }
 
 .blur-load > .small-img {
-  position: absolute;
-  inset: 0;
+  /* position: relative; */
   filter: blur(10px);
 }
 
 .blur-load > img:not(.small-img) {
+  /* position: absolute; */
+  inset: 0;
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;

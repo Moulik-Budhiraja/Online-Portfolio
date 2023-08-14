@@ -92,6 +92,8 @@ router.get(
       },
       include: {
         draft: true,
+        headerImage: true,
+        author: true,
       },
     });
 
