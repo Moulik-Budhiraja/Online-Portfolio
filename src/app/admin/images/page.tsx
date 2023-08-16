@@ -4,16 +4,19 @@ import ImageContainer from "@/components/ImageContainer/ImageContainer";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
 import { getImages } from "@/serverFunctions/Images/getImages";
-import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import LinkButton from "@/components/LinkButton/LinkButton";
+
+function updateImages(value: string, setImages: (images: string[]) => void) {
+  getImages(value).then((images) =>
+    setImages(images.map((image) => image.filename))
+  );
+}
 
 export default function AdminImages() {
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    getImages("").then((images) =>
-      setImages(images.map((image) => image.filename))
-    );
+    updateImages("", setImages);
   }, []);
 
   return (
@@ -26,15 +29,18 @@ export default function AdminImages() {
       </div>
       <SearchBar
         placeholder="Image Slug"
-        onSearch={(value) => {
-          getImages(value).then((images) =>
-            setImages(images.map((image) => image.filename))
-          );
-        }}
+        onSearch={(value) => updateImages(value, setImages)}
       ></SearchBar>
-      <div className="mt-4 grid grid-cols-minmax-15-1fr">
+      <div className="mt-4 grid grid-cols-minmax-15-1fr gap-4">
         {images.map((image) => (
-          <ImageContainer filename={image} alt={image}></ImageContainer>
+          <ImageContainer
+            key={image}
+            filename={image}
+            alt={image}
+            refreshCallback={() => {
+              updateImages("", setImages);
+            }}
+          ></ImageContainer>
         ))}
       </div>
     </div>
