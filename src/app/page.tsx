@@ -1,21 +1,20 @@
+import LogoutLink from "@/components/LogoutLink/LogoutLink";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+
   return (
     <div className="max-w-7xl mx-auto">
-      <Link
-        href="#"
-        className="font-display text-xl text-neutral-400 absolute top-4 right-8 hover:text-neutral-100 transition-colors duration-300 ease-out"
-      >
-        Logout: Moulik Budhiraja
-      </Link>
+      {session && <LogoutLink session={session}></LogoutLink>}
       <main>
         <section className="min-h-screen flex items-center -mt-8">
           <div className="w-full flex justify-between mt-16 lg: lg:mt-4">
             <div className="my-12 lg:my-0 lg:mx-8 lg:max-w-3xl">
               <div className="gap-4 inline-block">
                 <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-neutral-100 whitespace-nowrap">
-                  Hi, I'm Moulik
+                  Hi, I&apos;m Moulik
                 </h1>
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-neutral-300 lg:text-center whitespace-nowrap">
                   Full Stack | Student
@@ -69,7 +68,7 @@ export default function Home() {
               </div>
               <div className="text-neutral-400 py-6 pl-8 max-w-3xl lg:pr-16 mt-12 border-neutral-100 border-l">
                 <p>
-                  I'm an enthusiastic Software Engineering student at the
+                  I&apos;m an enthusiastic Software Engineering student at the
                   University of Guelph who is passionate about math, technology
                   and photography. I like to spend my free time working on
                   personal programming projects and learning new skills.

@@ -12,8 +12,6 @@ type GetImageProps = {
 export async function GET(request: NextRequest, { params }: GetImageProps) {
   const { filename } = params;
 
-  console.log(filename);
-
   const image = await prisma.image.findUnique({
     where: {
       filename,

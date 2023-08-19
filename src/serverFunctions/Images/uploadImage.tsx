@@ -10,8 +10,6 @@ export async function uploadImage(data: FormData) {
   const filename = data.get("filename") as string;
   const file = data.get("file") as File;
 
-  console.log(file.type.split("/")[1]);
-
   // Create prisma entry
   const image = await prisma.image.create({
     data: {

@@ -24,8 +24,6 @@ export default function LazyImage({
   };
 
   useEffect(() => {
-    console.log(fullImage.current?.complete);
-
     if (!fullImage.current) return;
 
     if (fullImage.current?.complete) {
@@ -51,15 +49,15 @@ export default function LazyImage({
       <img
         src={`/image/small/${filename}`}
         alt={alt}
-        className={`w-full block object-center ${
-          cover ? "object-cover" : "object-contain w-fit"
+        className={`block object-center ${
+          cover ? "object-cover w-full" : "object-contain w-fit"
         } grid-area-1-1-2-2 blur-md h-full`}
       />
       <img
         src={`/image/${filename}`}
         alt={alt}
-        className={`w-full block object-center ${
-          cover ? "object-cover" : "object-contain w-fit"
+        className={`block object-center ${
+          cover ? "object-cover w-full" : "object-contain w-fit"
         } grid-area-1-1-2-2 z-10 transition-all opacity-0  duration-700 ease-out h-full`}
         ref={fullImage}
         loading="lazy"

@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Providers from "./Providers";
 import { Poiret_One, Manrope } from "next/font/google";
 
 const poiret_one = Poiret_One({
@@ -25,13 +26,15 @@ export default function RootLayout({
       <body
         className={`${manrope.className} text-neutral-400 bg-neutral-850 p-8 overflow-x-hidden`}
       >
-        <div
-          className={`fixed w-[175vh] h-60 lg:h-72 2xl:h-96 bg-neutral-300 rounded-full opacity-5 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-[0] left-[10vw] rotate-[60deg] -z-50`}
-        ></div>
-        <div
-          className={`fixed w-[175vh] h-60 lg:h-72 2xl:h-96 bg-neutral-300 rounded-full opacity-5 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-[140vh] left-[80vw] rotate-[120deg] -z-50`}
-        ></div>
-        {children}
+        <Providers>
+          <div
+            className={`fixed w-[175vh] h-60 lg:h-72 2xl:h-96 bg-neutral-300 rounded-full opacity-5 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-[0] left-[10vw] rotate-[60deg] -z-50`}
+          ></div>
+          <div
+            className={`fixed w-[175vh] h-60 lg:h-72 2xl:h-96 bg-neutral-300 rounded-full opacity-5 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-[140vh] left-[80vw] rotate-[120deg] -z-50`}
+          ></div>
+          {children}
+        </Providers>
       </body>
     </html>
   );
