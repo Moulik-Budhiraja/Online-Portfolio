@@ -2,27 +2,29 @@
 
 import { useEffect, useState } from "react";
 
-type InputProps = {
+type TextareaProps = {
   placeholder: string;
   defaultValue?: string;
   className?: string;
   name?: string;
-  type?: "text" | "email" | "password";
+  cols?: number;
+  rows?: number;
   maxLength?: number;
   onChange?: (value: string) => void;
   onEnter?: (value: string) => void;
 };
 
-export default function Input({
+export default function Textarea({
   placeholder,
   defaultValue,
   className,
   name,
-  type = "text",
+  cols = 30,
+  rows = 5,
   maxLength,
   onChange,
   onEnter,
-}: InputProps) {
+}: TextareaProps) {
   const [value, setValue] = useState(defaultValue || "");
 
   useEffect(() => {
@@ -31,11 +33,12 @@ export default function Input({
 
   return (
     <div className={`relative ${className || ""}`}>
-      <input
-        type={type}
+      <textarea
         className="w-full py-3 px-5 font-sans bg-neutral-850 border border-neutral-600 rounded-md outline-none focus:border-neutral-400 transition-all duration-300 ease-out peer"
         name={name}
         required
+        cols={cols}
+        rows={rows}
         maxLength={maxLength}
         onChange={(e) => {
           setValue(e.target.value);
@@ -45,7 +48,7 @@ export default function Input({
           if (e.key === "Enter") onEnter && onEnter(value);
         }}
         value={value}
-      />
+      ></textarea>
       <span
         className={`absolute font-display my-3 bg-neutral-850  pointer-events-none transition-all duration-300 ease-in-out peer-focus:mx-2 peer-focus:px-3 peer-focus:left-4 peer-focus:-top-6 peer-focus:tracking-widest peer-focus:text-neutral-300 peer-focus:border-x peer-focus:border-x-neutral-400 ${
           value !== ""

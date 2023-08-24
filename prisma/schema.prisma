@@ -60,9 +60,9 @@ model BlogVersion {
 model Comment {
   id        String    @id @default(uuid())
   blogId    String
-  parentId  String?   @unique
+  parentId  String?
   parent    Comment?  @relation("CommentHierarchy", fields: [parentId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  child     Comment?  @relation("CommentHierarchy")
+  children  Comment[] @relation("CommentHierarchy")
   title     String    @db.VarChar(255)
   name      String    @db.VarChar(255)
   content   String    @db.VarChar(2000)

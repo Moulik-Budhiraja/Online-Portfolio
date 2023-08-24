@@ -13,7 +13,6 @@ export default async function Blogs({ searchParams }: BlogsProps) {
       title: {
         contains: searchParams.title,
       },
-      published: true,
     },
     include: {
       headerImage: true,
@@ -23,7 +22,7 @@ export default async function Blogs({ searchParams }: BlogsProps) {
   return (
     <div className="flex flex-col gap-4 max-w-5xl mx-auto">
       <h1 className="font-display text-4xl text-neutral-100">Blogs</h1>
-      <BlogList blogs={blogs} targetPrefix="/blogs/"></BlogList>
+      <BlogList blogs={blogs} targetPrefix="/admin/blogs/edit/"></BlogList>
     </div>
   );
 }

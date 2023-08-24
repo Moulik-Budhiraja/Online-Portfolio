@@ -29,6 +29,9 @@ const config: Config = {
       gridTemplateColumns: {
         "minmax-15-1fr": "repeat(auto-fill, minmax(15rem, 1fr))",
       },
+      listStyleType: {
+        revert: "revert",
+      },
     },
   },
   plugins: [

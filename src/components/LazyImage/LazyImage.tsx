@@ -7,6 +7,7 @@ type LazyImageProps = {
   alt: string;
   className?: string;
   cover?: boolean;
+  blur?: boolean;
   onClick?: () => void;
 };
 
@@ -15,11 +16,14 @@ export default function LazyImage({
   alt,
   className,
   cover = true,
+  blur = true,
   onClick,
 }: LazyImageProps) {
   const fullImage = useRef<HTMLImageElement>(null);
 
   const unBlur = (img: HTMLImageElement) => {
+    if (!blur) return;
+
     img.classList.remove("opacity-0");
   };
 
@@ -46,19 +50,23 @@ export default function LazyImage({
       } ${className || ""} `}
       onClick={onClick}
     >
-      <img
-        src={`/image/small/${filename}`}
-        alt={alt}
-        className={`block object-center ${
-          cover ? "object-cover w-full" : "object-contain w-fit"
-        } grid-area-1-1-2-2 blur-md h-full`}
-      />
+      {blur && (
+        <img
+          src={`/image/small/${filename}`}
+          alt={alt}
+          className={`block object-center ${
+            cover ? "object-cover w-full" : "object-contain w-fit"
+          } grid-area-1-1-2-2 blur-md h-full`}
+        />
+      )}
       <img
         src={`/image/${filename}`}
         alt={alt}
         className={`block object-center ${
           cover ? "object-cover w-full" : "object-contain w-fit"
-        } grid-area-1-1-2-2 z-10 transition-all opacity-0  duration-700 ease-out h-full`}
+        } grid-area-1-1-2-2 z-10 transition-all ${
+          blur && "opacity-0"
+        }  duration-700 ease-out h-full`}
         ref={fullImage}
         loading="lazy"
       />

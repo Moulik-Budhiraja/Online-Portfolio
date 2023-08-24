@@ -1,3 +1,4 @@
+import { useVisibility } from "@/hooks/useVisibility/useVisibility";
 import Button from "../Button/Button";
 
 type FormDialogProps = {
@@ -19,10 +20,12 @@ export default function FormDialog({
   onClose,
   onSubmit,
 }: FormDialogProps) {
-  return (
+  const [visible, fadeIn] = useVisibility(open);
+
+  return visible ? (
     <div
       className={`fixed bg-neutral-850 border border-neutral-500 w-[80vw] max-w-2xl rounded-md z-30 flex flex-col gap-2 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 p-6 transition-opacity duration-300 ease-out ${
-        open
+        fadeIn
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       }`}
@@ -46,5 +49,5 @@ export default function FormDialog({
         </div>
       </form>
     </div>
-  );
+  ) : null;
 }

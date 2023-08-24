@@ -1,12 +1,12 @@
-import DeleteIcon from "../DeleteIcon/DeleteIcon";
-import EditIcon from "../EditIcon/EditIcon";
+import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon";
+import EditIcon from "../Icons/EditIcon/EditIcon";
 import LazyImage from "../LazyImage/LazyImage";
-import { deleteImage } from "@/serverFunctions/Images/deleteImage";
+import { deleteImage } from "@/serverFunctions/images/deleteImage";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { useState } from "react";
 import FormDialog from "../FormDialog/FormDialog";
 import Input from "../Input/Input";
-import { editImage } from "@/serverFunctions/Images/editImage";
+import { editImage } from "@/serverFunctions/images/editImage";
 import ImageDialog from "../ImageDialog/ImageDialog";
 
 type ImageContainerProps = {
@@ -33,13 +33,15 @@ export default function ImageContainer({
         className="rounded-md aspect-[4/3] border border-neutral-400 border-opacity-0 hocus:border-opacity-100 transition-all duration-300 ease-out cursor-pointer"
         onClick={() => setPreviewPopupOpen(true)}
       ></LazyImage>
-      <div className="flex h-6">
+      <div className="flex justify-around h-6">
         <EditIcon
+          className="h-full aspect-square"
           onClick={() => {
             setEditPopupOpen(true);
           }}
         ></EditIcon>
         <DeleteIcon
+          className="h-full aspect-square"
           onClick={() => {
             setDeletePopupOpen(true);
           }}
@@ -52,7 +54,7 @@ export default function ImageContainer({
         onConfirm={() => {
           deleteImage(filename).then(() => {
             setDeletePopupOpen(false);
-            refreshCallback && refreshCallback();
+            refreshCallback?.();
           });
         }}
         onCancel={() => setDeletePopupOpen(false)}
@@ -63,7 +65,7 @@ export default function ImageContainer({
         onSubmit={(data) => {
           editImage(filename, data.get("filename") as string).then(() => {
             setEditPopupOpen(false);
-            refreshCallback && refreshCallback();
+            refreshCallback?.();
           });
         }}
         title="Edit Image"

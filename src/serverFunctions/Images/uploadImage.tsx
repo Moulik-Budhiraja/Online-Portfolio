@@ -5,8 +5,11 @@ import { writeFile } from "fs/promises";
 import { redirect } from "next/navigation";
 import path from "path";
 import sharp from "sharp";
+import { requireAdmin } from "../user/requireAdmin";
 
 export async function uploadImage(data: FormData) {
+  await requireAdmin();
+
   const filename = data.get("filename") as string;
   const file = data.get("file") as File;
 

@@ -3,7 +3,7 @@
 import ImageContainer from "@/components/ImageContainer/ImageContainer";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
-import { getImages } from "@/serverFunctions/Images/getImages";
+import { getImages } from "@/serverFunctions/images/getImages";
 import LinkButton from "@/components/LinkButton/LinkButton";
 
 function updateImages(value: string, setImages: (images: string[]) => void) {
