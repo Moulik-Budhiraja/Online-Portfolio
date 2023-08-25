@@ -33,6 +33,7 @@ export default function SearchBar({
           setValue(value);
           onChange && onChange(value);
         }}
+        preventSubmit={true}
         onEnter={(value) => onSearch && onSearch(value)}
         placeholder={placeholder}
         defaultValue={defaultValue}

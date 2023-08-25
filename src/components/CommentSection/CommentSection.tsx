@@ -30,6 +30,9 @@ export default function CommentSection({ blogId }: CommentSectionProps) {
         Comments
       </div>
       <div className="my-8 ml-4">
+        {rootComments.length === 0 && (
+          <div>No comments yet. Be the first to leave one!</div>
+        )}
         {rootComments.map((comment) => (
           <Comment
             id={comment.id}

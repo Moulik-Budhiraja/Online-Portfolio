@@ -1,10 +1,12 @@
 import CommentSection from "@/components/CommentSection/CommentSection";
 import LazyImage from "@/components/LazyImage/LazyImage";
+import LinkButton from "@/components/LinkButton/LinkButton";
 import { prisma } from "@/db";
-import Head from "next/head";
+import md from "@/md_renderer";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { parse } from "node-html-parser";
+import "@/styles/code.css";
 
 type BlogProps = {
   params: {
@@ -32,10 +34,10 @@ export default async function Blog({ params }: BlogProps) {
   const blog = await prisma.blog.findUnique({
     where: {
       slug: params.slug,
-      published: true,
     },
     include: {
       headerImage: true,
+      draft: true,
       author: true,
     },
   });
@@ -44,7 +46,7 @@ export default async function Blog({ params }: BlogProps) {
     return notFound();
   }
 
-  const html = parse(blog.content || "");
+  const html = parse(md.render(blog.draft?.content || ""));
 
   for (const [key, value] of Object.entries(tailwindInjection)) {
     html.querySelectorAll(key).forEach((element) => {
@@ -96,7 +98,11 @@ export default async function Blog({ params }: BlogProps) {
 
       <article dangerouslySetInnerHTML={{ __html: html.toString() }}></article>
 
-      <CommentSection blogId={blog.id}></CommentSection>
+      <div className="pt-20 mb-10 border-t border-neutral-700 flex justify-center">
+        <LinkButton href={`/admin/blogs/edit/${blog.slug}`}>
+          Back to Editing
+        </LinkButton>
+      </div>
     </div>
   );
 }

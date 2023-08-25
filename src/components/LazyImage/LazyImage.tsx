@@ -24,7 +24,7 @@ export default function LazyImage({
   const unBlur = (img: HTMLImageElement) => {
     if (!blur) return;
 
-    img.classList.remove("opacity-0");
+    img?.classList.remove("opacity-0");
   };
 
   useEffect(() => {
