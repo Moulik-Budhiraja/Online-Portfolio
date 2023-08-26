@@ -14,8 +14,6 @@ export async function editBlog(data: FormData) {
   const description = data.get("description") as string;
   const imageFilename = data.get("imageFilename") as string;
 
-  console.log(data);
-
   if (imageFilename === "") {
     await prisma.blog.update({
       where: {

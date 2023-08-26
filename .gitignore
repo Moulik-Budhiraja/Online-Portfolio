@@ -37,6 +37,7 @@ next-env.d.ts
 
 # Development
 .vscode
+.env
 db
 test
 images/full/*

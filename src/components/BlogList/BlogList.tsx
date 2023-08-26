@@ -23,7 +23,11 @@ export default function BlogList({ targetPrefix, blogs }: BlogListProps) {
       ></SearchBar>
       <div className="flex flex-col gap-2">
         {blogs.map((blog) => (
-          <BlogCard blog={blog} href={`${targetPrefix}${blog.slug}`} />
+          <BlogCard
+            key={blog.id}
+            blog={blog}
+            href={`${targetPrefix}${blog.slug}`}
+          />
         ))}
       </div>
     </>

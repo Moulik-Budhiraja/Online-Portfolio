@@ -1,7 +1,7 @@
 "use client";
 
 import { getComment } from "@/serverFunctions/comment/getComment";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReplyIcon from "../Icons/ReplyIcon/ReplyIcon";
 import CommentForm from "../CommentForm/CommentForm";
 import CancelIcon from "../Icons/CancelIcon/CancelIcon";
@@ -28,7 +28,7 @@ export default function Comment({
   const [replying, setReplying] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const updateChildComments = () => {
+  const updateChildComments = useCallback(() => {
     getComment(id).then((comment) => {
       comment && setComment(comment);
 
@@ -36,9 +36,9 @@ export default function Comment({
         setChildren(comment?.children.map((child) => child.id));
       }
     });
-  };
+  }, []);
 
-  useEffect(() => updateChildComments(), []);
+  useEffect(() => updateChildComments(), [updateChildComments]);
 
   return (
     <div className="w-fit border-l-2 border-neutral-600 pl-5 ">
@@ -72,6 +72,7 @@ export default function Comment({
             parentId={id}
             className="mt-4 mb-8"
             focus={true}
+            user={user}
             onSubmit={() => {
               updateChildComments();
               setReplying(false);

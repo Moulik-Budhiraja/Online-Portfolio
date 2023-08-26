@@ -6,6 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/styles/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     fontFamily: {
@@ -37,6 +38,7 @@ const config: Config = {
   plugins: [
     plugin(function ({ addVariant }) {
       addVariant("hocus", ["&:hover", "&:focus"]);
+      addVariant("group-hocus", [".group:hover &", ".group:focus &"]);
       addVariant("vocus", ["&:focus", "&:valid"]);
       addVariant("peer-vocus", [".peer:focus ~ &", ".peer:valid ~ &"]);
     }),

@@ -10,6 +10,9 @@ export async function getImages(searchTerm: string, take: number = 25) {
       },
     },
     take: take,
+    orderBy: {
+      filename: "asc",
+    },
   });
 
   return images;

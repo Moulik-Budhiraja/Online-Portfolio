@@ -13,11 +13,20 @@ export async function uploadImage(data: FormData) {
   const filename = data.get("filename") as string;
   const file = data.get("file") as File;
 
+  const tempImageMeta = await (
+    await sharp(await file.arrayBuffer())
+  ).metadata();
+  const aspectRatio: number =
+    tempImageMeta.width && tempImageMeta.height
+      ? tempImageMeta.width / tempImageMeta.height
+      : 1;
+
   // Create prisma entry
   const image = await prisma.image.create({
     data: {
       filename: filename,
       filetype: file.type.split("/")[1],
+      aspectRatio: aspectRatio,
       user: {
         connect: {
           id: "913d9b8c-0523-44e9-9509-d95ff86613be", // ! Change to user id later

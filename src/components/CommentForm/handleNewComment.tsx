@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
+import { getSessionUser } from "@/serverFunctions/user/getSessionUser";
 
 export async function handleNewComment(data: FormData) {
   const blogId = data.get("blogId") as string;
@@ -9,15 +10,29 @@ export async function handleNewComment(data: FormData) {
   const title = data.get("title") as string;
   const body = data.get("body") as string;
 
-  console.log(data);
+  // const user = await getSessionUser();
+
+  const parent = parentId
+    ? {
+        parent: {
+          connect: {
+            id: parentId,
+          },
+        },
+      }
+    : {};
 
   const comment = await prisma.comment.create({
     data: {
-      blogId,
-      parentId,
       name,
       title,
       content: body,
+      blog: {
+        connect: {
+          id: blogId,
+        },
+      },
+      ...parent,
     },
   });
 

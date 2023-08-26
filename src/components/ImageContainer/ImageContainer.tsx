@@ -1,23 +1,25 @@
 import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon";
 import EditIcon from "../Icons/EditIcon/EditIcon";
 import LazyImage from "../LazyImage/LazyImage";
-import { deleteImage } from "@/serverFunctions/images/deleteImage";
+import { deleteImage } from "@/serverFunctions/images2/deleteImage";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { useState } from "react";
 import FormDialog from "../FormDialog/FormDialog";
 import Input from "../Input/Input";
-import { editImage } from "@/serverFunctions/images/editImage";
+import { editImage } from "@/serverFunctions/images2/editImage";
 import ImageDialog from "../ImageDialog/ImageDialog";
 
 type ImageContainerProps = {
   filename: string;
   alt: string;
+  aspectRatio?: number;
   refreshCallback?: () => void;
 };
 
 export default function ImageContainer({
   filename,
   alt,
+  aspectRatio: aspectRatio,
   refreshCallback,
 }: ImageContainerProps) {
   const [previewPopupOpen, setPreviewPopupOpen] = useState(false);
@@ -80,6 +82,7 @@ export default function ImageContainer({
       <ImageDialog
         open={previewPopupOpen}
         filename={filename}
+        aspectRatio={aspectRatio}
         onClose={() => setPreviewPopupOpen(false)}
       ></ImageDialog>
     </div>

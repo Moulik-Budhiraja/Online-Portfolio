@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import SearchBar from "../SearchBar/SearchBar";
-import { getImages } from "@/serverFunctions/images/getImages";
+import { getImages } from "@/serverFunctions/images2/getImages";
 import { Image } from "@prisma/client";
 import LazyImage from "../LazyImage/LazyImage";
 import { serverLog } from "@/serverFunctions/log/serverLog";
@@ -61,6 +61,7 @@ export default function ImageInput({
           <div className="grid grid-cols-3 gap-4 w-96 my-4 max-h-[50vh] overflow-scroll">
             {images.map((image) => (
               <LazyImage
+                key={image.id}
                 className="aspect-square rounded-md w-28 border border-opacity-0 border-neutral-300 hocus:border-opacity-100 cursor-pointer transition-all duration-300 ease-out"
                 filename={image.filename}
                 alt={image.filename}

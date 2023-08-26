@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 type LazyImageProps = {
   filename: string;
   alt: string;
   className?: string;
+  aspectRatio?: number;
   cover?: boolean;
   blur?: boolean;
   onClick?: () => void;
@@ -15,17 +16,18 @@ export default function LazyImage({
   filename,
   alt,
   className,
+  aspectRatio,
   cover = true,
   blur = true,
   onClick,
 }: LazyImageProps) {
   const fullImage = useRef<HTMLImageElement>(null);
 
-  const unBlur = (img: HTMLImageElement) => {
+  const unBlur = useCallback((img: HTMLImageElement) => {
     if (!blur) return;
 
     img?.classList.remove("opacity-0");
-  };
+  }, []);
 
   useEffect(() => {
     if (!fullImage.current) return;
@@ -41,22 +43,28 @@ export default function LazyImage({
         }, 800);
       });
     }
-  }, []);
+  }, [unBlur]);
 
   return (
     <div
       className={`relative overflow-hidden grid ${
         !cover && "place-items-center"
       } ${className || ""} `}
+      style={{
+        aspectRatio: aspectRatio,
+      }}
       onClick={onClick}
     >
       {blur && (
         <img
           src={`/image/small/${filename}`}
-          alt={alt}
-          className={`block object-center ${
+          alt=""
+          className={`block object-center backdrop-brightness-110 ${
             cover ? "object-cover w-full" : "object-contain w-fit"
           } grid-area-1-1-2-2 blur-md h-full`}
+          style={{
+            aspectRatio: aspectRatio,
+          }}
         />
       )}
       <img

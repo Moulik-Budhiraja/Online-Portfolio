@@ -3,17 +3,16 @@
 import ImageContainer from "@/components/ImageContainer/ImageContainer";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
-import { getImages } from "@/serverFunctions/images/getImages";
+import { getImages } from "@/serverFunctions/images2/getImages";
 import LinkButton from "@/components/LinkButton/LinkButton";
+import { Image } from "@prisma/client";
 
-function updateImages(value: string, setImages: (images: string[]) => void) {
-  getImages(value).then((images) =>
-    setImages(images.map((image) => image.filename))
-  );
+function updateImages(value: string, setImages: (images: Image[]) => void) {
+  getImages(value).then((images) => setImages(images));
 }
 
 export default function AdminImages() {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
     updateImages("", setImages);
@@ -34,9 +33,10 @@ export default function AdminImages() {
       <div className="mt-4 grid grid-cols-minmax-15-1fr gap-4">
         {images.map((image) => (
           <ImageContainer
-            key={image}
-            filename={image}
-            alt={image}
+            key={image.id}
+            filename={image.filename}
+            alt={image.filename}
+            aspectRatio={image.aspectRatio || undefined}
             refreshCallback={() => {
               updateImages("", setImages);
             }}

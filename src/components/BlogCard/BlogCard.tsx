@@ -15,7 +15,7 @@ export default function BlogCard({ blog, href, onClick }: BlogCardProps) {
 
   return (
     <div
-      className="flex flex-col rounded-md relative gap-4 p-4 bg-neutral-850 border border-neutral-600 transition-all duration-300 ease-out md:flex-row cursor-pointer hocus:bg-neutral-700 hocus:bg-opacity-50 hocus:border-neutral-400 max-h-64"
+      className="flex flex-col rounded-md relative gap-4 p-4 bg-neutral-850 border border-neutral-600 transition-all duration-300 ease-out md:flex-row cursor-pointer hocus:bg-neutral-700 hocus:bg-opacity-50 hocus:border-neutral-400 lg:max-h-64"
       onClick={() => {
         onClick?.();
 
@@ -26,9 +26,10 @@ export default function BlogCard({ blog, href, onClick }: BlogCardProps) {
     >
       {blog.headerImage && (
         <LazyImage
-          className="md:w-1/3 rounded-md"
+          className="md:w-1/3 rounded-md "
           filename={blog.headerImage?.filename}
           alt={blog.headerImageSubtitle || ""}
+          aspectRatio={blog.headerImage?.aspectRatio || undefined}
         />
       )}
       <div className="md:w-2/3">

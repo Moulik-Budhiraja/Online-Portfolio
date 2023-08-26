@@ -2,7 +2,7 @@
 
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
-import { uploadImage } from "@/serverFunctions/images/uploadImage";
+import { uploadImage } from "@/serverFunctions/images2/uploadImage";
 import { useState } from "react";
 
 export default function ImageUpload() {

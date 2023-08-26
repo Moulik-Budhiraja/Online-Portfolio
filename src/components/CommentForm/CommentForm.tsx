@@ -5,12 +5,14 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import { handleNewComment } from "./handleNewComment";
+import { User } from "@prisma/client";
 
 type CommentFormProps = {
   blogId: string;
   parentId?: string;
   className?: string;
   focus?: boolean;
+  user?: User;
   onSubmit?: () => void;
 };
 
@@ -19,6 +21,7 @@ export default function CommentForm({
   parentId,
   className,
   focus = false,
+  user,
   onSubmit,
 }: CommentFormProps) {
   const [submitting, setSubmitting] = useState(false);
@@ -29,7 +32,7 @@ export default function CommentForm({
         document.querySelector("input[name='name']") as HTMLInputElement
       )?.focus();
     }
-  }, []);
+  }, [focus]);
 
   useEffect(() => {
     if (submitting) {
@@ -51,10 +54,15 @@ export default function CommentForm({
         <input type="hidden" name="parentId" value={parentId || ""} />
         {!submitting && (
           <>
+            {user?.name && (
+              <input type="hidden" name="name" value={user.name} />
+            )}
             <Input
               placeholder="Name"
-              name="name"
+              name={user?.name ? "" : "name"}
               className="max-w-sm"
+              defaultValue={user?.name}
+              disabled={!!user?.name}
               maxLength={40}
             />
             <Input

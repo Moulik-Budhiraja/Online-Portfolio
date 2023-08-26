@@ -7,3 +7,8 @@
     grid-area: 1 / 1 / 2 / 2;
   }
 }
+
+html,
+body {
+  scroll-behavior: smooth;
+}

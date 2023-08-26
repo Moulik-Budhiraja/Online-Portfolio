@@ -15,7 +15,15 @@ export default async function Blog({ params }: BlogProps) {
     },
     include: {
       author: true,
-      draft: true,
+      draft: {
+        include: {
+          versions: {
+            orderBy: {
+              createdAt: "desc",
+            },
+          },
+        },
+      },
       headerImage: true,
     },
   });

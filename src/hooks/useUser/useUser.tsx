@@ -13,7 +13,7 @@ export function useUser() {
         user && setUser(user);
       });
     }
-  }, [status]);
+  }, [status, session?.user?.email]);
 
   return user;
 }

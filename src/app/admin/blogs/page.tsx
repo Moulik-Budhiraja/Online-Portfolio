@@ -1,5 +1,6 @@
 import { prisma } from "@/db";
 import BlogList from "@/components/BlogList/BlogList";
+import CreateBlogForm from "./CreateBlogForm";
 
 type BlogsProps = {
   searchParams: {
@@ -21,7 +22,10 @@ export default async function Blogs({ searchParams }: BlogsProps) {
 
   return (
     <div className="flex flex-col gap-4 max-w-5xl mx-auto">
-      <h1 className="font-display text-4xl text-neutral-100">Blogs</h1>
+      <div className="flex justify-between gap-4">
+        <h1 className="font-display text-4xl text-neutral-100">Blogs</h1>
+        <CreateBlogForm></CreateBlogForm>
+      </div>
       <BlogList blogs={blogs} targetPrefix="/admin/blogs/edit/"></BlogList>
     </div>
   );

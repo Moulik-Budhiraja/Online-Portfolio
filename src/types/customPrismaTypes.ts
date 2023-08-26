@@ -7,7 +7,11 @@ export type BlogWithImage = Prisma.BlogGetPayload<{
 export type EditorBlog = Prisma.BlogGetPayload<{
   include: {
     author: true;
-    draft: true;
+    draft: {
+      include: {
+        versions: true;
+      };
+    };
     headerImage: true;
   };
 }>;

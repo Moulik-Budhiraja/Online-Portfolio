@@ -63,8 +63,6 @@ md.inline.ruler.push("contact_popover", (state, silent) => {
   const src = state.src;
   const pos = state.pos;
 
-  // console.log(src, pos, src[pos]);
-
   // If the next 3 characters are [[@ then we have a contact popover
   if (src.slice(pos, pos + 3) === "[[@") {
     // Find the end of the contact popover

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CommentForm from "../CommentForm/CommentForm";
 import Comment from "@/components/Comment/Comment";
 import { getComments } from "@/serverFunctions/comment/getComments";
@@ -16,13 +16,13 @@ export default function CommentSection({ blogId }: CommentSectionProps) {
 
   const user = useUser();
 
-  const updateRootComments = () => {
+  const updateRootComments = useCallback(() => {
     getComments(blogId, null, true).then((comments) => {
       setRootComments(comments as RootComment[]);
     });
-  };
+  }, []);
 
-  useEffect(() => updateRootComments(), []);
+  useEffect(() => updateRootComments(), [updateRootComments]);
 
   return (
     <div>
@@ -46,6 +46,7 @@ export default function CommentSection({ blogId }: CommentSectionProps) {
         New Comment
       </div>
       <CommentForm
+        user={user}
         blogId={blogId}
         onSubmit={() => updateRootComments()}
       ></CommentForm>

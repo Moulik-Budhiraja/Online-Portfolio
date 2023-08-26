@@ -1,13 +1,31 @@
+import LinkNav from "@/components/LinkNav/LinkNav";
 import LogoutLink from "@/components/LogoutLink/LogoutLink";
+import { getSessionUser } from "@/serverFunctions/user/getSessionUser";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 export default async function Home() {
   const session = await getServerSession();
+  let user;
+
+  if (session?.user?.email) {
+    user = await getSessionUser();
+  }
 
   return (
     <div className="max-w-7xl mx-auto">
-      {session && <LogoutLink session={session}></LogoutLink>}
+      <div className="absolute top-4 right-8 flex gap-4">
+        {user?.role === "ADMIN" && <LinkNav href="/admin">Admin</LinkNav>}
+        <LinkNav href="/blogs">Blog</LinkNav>
+        {session ? (
+          <LogoutLink session={session}></LogoutLink>
+        ) : (
+          <>
+            <LinkNav href="auth/login">Login</LinkNav>
+            <LinkNav href="auth/signup">Sign up</LinkNav>
+          </>
+        )}
+      </div>
       <main>
         <section className="min-h-screen flex items-center -mt-8">
           <div className="w-full flex justify-between mt-16 lg: lg:mt-4">
@@ -137,7 +155,10 @@ export default async function Home() {
               />
             </div>
             <div className="relative -top-40">
-              <h3 className="font-display text-4xl text-neutral-100">
+              <h3
+                className="font-display text-4xl text-neutral-100"
+                id="nail-braille"
+              >
                 Nail Braille
               </h3>
               <h6 className="font-display text-xl text-neutral-500">
