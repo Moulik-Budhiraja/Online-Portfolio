@@ -1,12 +1,12 @@
 import DeleteIcon from "../Icons/DeleteIcon/DeleteIcon";
 import EditIcon from "../Icons/EditIcon/EditIcon";
 import LazyImage from "../LazyImage/LazyImage";
-import { deleteImage } from "@/serverFunctions/images/deleteImage";
+import { deleteImage } from "@/serverFunctions/image/deleteImage";
 import ConfirmationDialog from "@/components/ConfirmationDialog/ConfirmationDialog";
 import { useState } from "react";
 import FormDialog from "../FormDialog/FormDialog";
 import Input from "../Input/Input";
-import { editImage } from "@/serverFunctions/images/editImage";
+import { editImage } from "@/serverFunctions/image/editImage";
 import ImageDialog from "../ImageDialog/ImageDialog";
 
 type ImageContainerProps = {
