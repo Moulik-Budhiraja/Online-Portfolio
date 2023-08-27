@@ -14,6 +14,7 @@ type CommentProps = {
   id: string;
   user?: User;
   noActions?: boolean;
+  renderChildren?: boolean;
   onDelete?: () => void;
 };
 
@@ -21,10 +22,11 @@ export default function Comment({
   id,
   user,
   noActions = false,
+  renderChildren = true,
   onDelete,
 }: CommentProps) {
   const [comment, setComment] = useState<Comment>();
-  const [children, setChildren] = useState<string[]>();
+  const [children, setChildren] = useState<Comment[]>();
   const [replying, setReplying] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -33,7 +35,7 @@ export default function Comment({
       comment && setComment(comment);
 
       if (comment?.children) {
-        setChildren(comment?.children.map((child) => child.id));
+        setChildren(comment?.children);
       }
     });
   }, []);
@@ -85,7 +87,8 @@ export default function Comment({
             className="h-6 w-6"
             onClick={() => setReplying(true)}
           ></ReplyIcon>
-          {user?.role === "ADMIN" && (
+          {(user?.role === "ADMIN" ||
+            (user?.id === comment?.authorId && !comment?.deleted)) && (
             <DeleteIcon
               className="h-6 w-6"
               onClick={() => setDeleteDialogOpen(true)}
@@ -110,18 +113,26 @@ export default function Comment({
           })
         }
       >
-        <Comment id={id} noActions={true} />
+        <Comment
+          id={id}
+          noActions={true}
+          renderChildren={user?.role === "ADMIN"}
+        />
       </ConfirmationDialog>
 
-      {children?.map((child) => (
-        <Comment
-          id={child}
-          key={child}
-          user={user}
-          noActions={noActions}
-          onDelete={updateChildComments}
-        />
-      ))}
+      {renderChildren &&
+        children?.map((child) => (
+          <Comment
+            id={child.id}
+            key={`${child.id}-${child.deleted}`}
+            user={user}
+            noActions={noActions}
+            onDelete={() => {
+              updateChildComments();
+              onDelete?.();
+            }}
+          />
+        ))}
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function LogoutLink({ session }: LogoutLinkProps) {
           e.preventDefault();
 
           signOut({
-            callbackUrl: "/",
+            callbackUrl: process.env.NEXTAUTH_URL,
           });
         }}
         className="font-display text-xl text-neutral-400 hover:text-neutral-100 transition-colors duration-300 ease-out"

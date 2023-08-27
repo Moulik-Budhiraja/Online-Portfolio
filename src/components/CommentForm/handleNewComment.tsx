@@ -10,7 +10,7 @@ export async function handleNewComment(data: FormData) {
   const title = data.get("title") as string;
   const body = data.get("body") as string;
 
-  // const user = await getSessionUser();
+  const user = await getSessionUser();
 
   const parent = parentId
     ? {
@@ -33,6 +33,11 @@ export async function handleNewComment(data: FormData) {
         },
       },
       ...parent,
+      author: {
+        connect: {
+          id: user?.id,
+        },
+      },
     },
   });
 

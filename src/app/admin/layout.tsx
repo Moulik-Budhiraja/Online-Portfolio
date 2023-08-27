@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth/next";
 import { options } from "../api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import { prisma } from "@/db";
-import { Prisma } from "@prisma/client";
 
 export default async function AdminLayout({
   children,

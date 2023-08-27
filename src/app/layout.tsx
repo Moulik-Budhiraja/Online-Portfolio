@@ -1,7 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Providers from "./Providers";
+// import Providers from "./Providers";
 import { Poiret_One, Manrope } from "next/font/google";
+import Providers from "./Providers";
 
 const poiret_one = Poiret_One({
   subsets: ["latin"],

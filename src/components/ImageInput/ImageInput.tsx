@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import SearchBar from "../SearchBar/SearchBar";
-import { getImages } from "@/serverFunctions/images2/getImages";
+import { getImages } from "@/serverFunctions/images/getImages";
 import { Image } from "@prisma/client";
 import LazyImage from "../LazyImage/LazyImage";
 import { serverLog } from "@/serverFunctions/log/serverLog";

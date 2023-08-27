@@ -25,7 +25,7 @@ export default function SignUpForm() {
     signIn("credentials", {
       username: username,
       password: password,
-      callbackUrl: "/",
+      callbackUrl: process.env.NEXTAUTH_URL,
     });
   };
 

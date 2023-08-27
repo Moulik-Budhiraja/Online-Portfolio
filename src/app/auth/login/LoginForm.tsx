@@ -15,7 +15,7 @@ export default function LoginForm() {
         signIn("credentials", {
           username: e.currentTarget.username.value,
           password: e.currentTarget.password.value,
-          callbackUrl: "/",
+          callbackUrl: process.env.NEXTAUTH_URL,
         });
       }}
     >

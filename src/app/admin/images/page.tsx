@@ -3,7 +3,7 @@
 import ImageContainer from "@/components/ImageContainer/ImageContainer";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
-import { getImages } from "@/serverFunctions/images2/getImages";
+import { getImages } from "@/serverFunctions/images/getImages";
 import LinkButton from "@/components/LinkButton/LinkButton";
 import { Image } from "@prisma/client";
 

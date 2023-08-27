@@ -36,7 +36,7 @@ export default function CommentSection({ blogId }: CommentSectionProps) {
         {rootComments.map((comment) => (
           <Comment
             id={comment.id}
-            key={comment.id}
+            key={`${comment.id}-${comment.deleted}`}
             user={user}
             onDelete={updateRootComments}
           />
