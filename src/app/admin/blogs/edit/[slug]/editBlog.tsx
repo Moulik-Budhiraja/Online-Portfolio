@@ -11,8 +11,11 @@ export async function editBlog(data: FormData) {
   const originalSlug = data.get("originalSlug") as string;
   const title = data.get("title") as string;
   const slug = data.get("slug") as string;
+  const className = data.get("class") as string | null;
   const description = data.get("description") as string;
   const imageFilename = data.get("imageFilename") as string;
+
+  console.log(data);
 
   if (imageFilename === "") {
     await prisma.blog.update({
@@ -23,6 +26,7 @@ export async function editBlog(data: FormData) {
         title,
         slug,
         description,
+        class: className,
         headerImageId: null,
       },
     });
@@ -35,6 +39,7 @@ export async function editBlog(data: FormData) {
         title,
         slug,
         description,
+        class: className,
         headerImage: {
           connect: {
             filename: imageFilename,

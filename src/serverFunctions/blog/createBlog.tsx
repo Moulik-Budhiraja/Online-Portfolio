@@ -6,7 +6,8 @@ import { requireAdmin } from "../user/requireAdmin";
 export async function createBlog(
   title: string,
   slug: string,
-  description: string
+  description: string,
+  className: string | null
 ) {
   const user = await requireAdmin();
 
@@ -15,6 +16,7 @@ export async function createBlog(
       title,
       slug,
       description,
+      class: className,
       author: {
         connect: {
           id: user.id,

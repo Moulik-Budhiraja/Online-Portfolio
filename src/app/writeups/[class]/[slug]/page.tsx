@@ -10,6 +10,7 @@ import "@/styles/code.css";
 
 type BlogProps = {
   params: {
+    class: string;
     slug: string;
   };
 };
@@ -19,7 +20,7 @@ export default async function Blog({ params }: BlogProps) {
     where: {
       slug: params.slug,
       published: true,
-      class: null,
+      class: params.class,
     },
     include: {
       headerImage: true,
@@ -56,12 +57,21 @@ export default async function Blog({ params }: BlogProps) {
           !blog.headerImage && "pb-2 border-b border-neutral-600"
         }`}
       >
-        <Link
-          href="/"
-          className="hover:text-neutral-200 transition-all duration-300 ease-out"
-        >
-          <div>{blog.author.name}</div>
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/"
+            className="hover:text-neutral-200 transition-all duration-300 ease-out"
+          >
+            <div>{blog.author.name}</div>
+          </Link>
+          {" | "}
+          <Link
+            href={`/writeups/${blog.class ?? ""}`}
+            className="hover:text-neutral-200 transition-all duration-300 ease-out"
+          >
+            <div>{blog.class}</div>
+          </Link>
+        </div>
         <div>
           {blog.createdAt.toLocaleString("en-US", {
             hour: "numeric",

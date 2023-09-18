@@ -51,6 +51,7 @@ export default function CreateBlogForm() {
               name="slug"
               defaultValue={slug}
             ></Input>
+            <Input placeholder="Class" className="w-1/2" name="class"></Input>
           </div>
           <Textarea placeholder="Description" name="description"></Textarea>
         </div>

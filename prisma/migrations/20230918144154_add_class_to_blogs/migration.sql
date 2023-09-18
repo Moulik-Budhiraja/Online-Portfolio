@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Blog` ADD COLUMN `class` VARCHAR(255) NULL;

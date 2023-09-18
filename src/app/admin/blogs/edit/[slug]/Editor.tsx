@@ -113,6 +113,9 @@ export default function Editor({ blog, className }: EditorProps) {
           showPrintMargin={false}
           wrapEnabled={true}
           fontSize={14}
+          setOptions={{
+            spellcheck: true,
+          }}
         ></AceEditor>
 
         <DraftVersionList
@@ -152,6 +155,12 @@ export default function Editor({ blog, className }: EditorProps) {
               className="w-full"
               name="slug"
             ></Input>
+            <Input
+              placeholder="Class"
+              className="w-1/2"
+              defaultValue={blog.class || undefined}
+              name="class"
+            ></Input>
           </div>
           <Textarea
             placeholder="Description"
@@ -175,7 +184,12 @@ export default function Editor({ blog, className }: EditorProps) {
           publishBlog(blog.id).then(() => {
             setPublishConfirmationOpen(false);
             router.refresh();
-            window.open(`/blogs/${blog.slug}`, "_blank");
+
+            if (blog.class === null) {
+              window.open(`/blogs/${blog.slug}`, "_blank");
+            } else {
+              window.open(`/writeups/${blog.class}/${blog.slug}`, "_blank");
+            }
           });
         }}
       ></ConfirmationDialog>
