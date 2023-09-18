@@ -21,6 +21,9 @@ export default async function Writeups({ searchParams }: WriteupsProps) {
     include: {
       headerImage: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return (

@@ -25,6 +25,9 @@ export default async function ClassWriteups({
     include: {
       headerImage: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return (

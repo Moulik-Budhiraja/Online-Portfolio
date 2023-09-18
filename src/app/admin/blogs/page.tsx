@@ -18,6 +18,9 @@ export default async function Blogs({ searchParams }: BlogsProps) {
     include: {
       headerImage: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return (
