@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   database:
-    image: mysql
+    image: mysql:8.1.0
     ports:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:1.1.1
+    image: portfolio-site:1.1.2
     ports:
       - "9842:3000"
     environment:

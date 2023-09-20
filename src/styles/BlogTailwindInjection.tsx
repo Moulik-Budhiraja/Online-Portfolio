@@ -12,4 +12,5 @@ export const tailwindInjection = {
   "span.inline-pop-over span a":
     "[reset] opacity-20 hover:opacity-100 transition-all duration-300 ease-out z-10 h-8 w-8",
   "span.inline-pop-over span a img": "h-full w-full",
+  ".katex-html": "hidden",
 };

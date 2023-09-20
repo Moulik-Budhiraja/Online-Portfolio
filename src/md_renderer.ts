@@ -1,5 +1,7 @@
 import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
+// @ts-ignore
+import tm from "markdown-it-texmath";
 
 function getImageFromLink(link: string) {
   if (link.includes("mailto:")) {
@@ -30,6 +32,12 @@ const md = new MarkdownIt({
 
     return "";
   },
+});
+
+md.use(tm, {
+  engine: require("katex"),
+  delimiters: "dollars",
+  katexOptions: { macros: { "\\RR": "\\mathbb{R}" } },
 });
 
 // Open links in new tab
