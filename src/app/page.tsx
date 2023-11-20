@@ -443,7 +443,7 @@ export default async function Home() {
                 Moulik Budhiraja
               </h3>
               <p className="max-w-[11rem] text-center">
-                Feel free to reach out, I'd love to connect!
+                Feel free to reach out, I&aposd love to connect!
               </p>
               <div className="flex h-8 gap-5 items-center mt-3 lg:justify-center">
                 <Link
