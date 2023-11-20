@@ -1,8 +1,10 @@
+import LinkButton from "@/components/LinkButton/LinkButton";
 import LinkNav from "@/components/LinkNav/LinkNav";
 import LogoutLink from "@/components/LogoutLink/LogoutLink";
 import { getSessionUser } from "@/serverFunctions/user/getSessionUser";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import "./experiences.css";
 
 export default async function Home() {
   const session = await getServerSession();
@@ -35,11 +37,11 @@ export default async function Home() {
                   Hi, I&apos;m Moulik
                 </h1>
                 <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-neutral-300 lg:text-center whitespace-nowrap">
-                  Full Stack | Student
+                  Student | Full Stack
                 </h2>
                 <div className="flex h-8 gap-5 items-center mt-3 lg:justify-center">
                   <Link
-                    href="mailto:moulikbudhiraja@gmail.com"
+                    href="mailto:contact@moulikbudhiraja.com"
                     target="_blank"
                     className="h-full opacity-25 hover:opacity-100 transition-opacity duration-300 ease-out z-10"
                   >
@@ -114,29 +116,27 @@ export default async function Home() {
                   </li>
                 </Link>
                 <Link
-                  href="https://github.com/Moulik-Budhiraja/Tank-Trample"
-                  target="_blank"
+                  href="#event-dashboard"
                   className="text-neutral-400 hover:text-neutral-100 text-2xl transition-colors duration-300 ease-out"
                 >
                   <li className="whitespace-nowrap text-center">
-                    Tank Trample
+                    Event Dashboard
                   </li>
                 </Link>
                 <Link
-                  href="https://github.com/Moulik-Budhiraja/Sprinkler-System"
-                  target="_blank"
+                  href="#hawkeye"
+                  className="text-neutral-400 hover:text-neutral-100 text-2xl transition-colors duration-300 ease-out"
+                >
+                  <li className="whitespace-nowrap text-center">Hawkeye</li>
+                </Link>
+
+                <Link
+                  href="#irrigation-controller"
                   className="text-neutral-400 hover:text-neutral-100 text-2xl transition-colors duration-300 ease-out"
                 >
                   <li className="whitespace-nowrap text-center">
                     Irrigation Controller
                   </li>
-                </Link>
-                <Link
-                  href="https://github.com/Moulik-Budhiraja/3D-Mapped-Christmas-Lights"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-neutral-100 text-2xl transition-colors duration-300 ease-out"
-                >
-                  <li className="whitespace-nowrap text-center">3D Lighting</li>
                 </Link>
               </ul>
             </div>
@@ -146,19 +146,18 @@ export default async function Home() {
           <h2 className="font-display text-5xl text-neutral-100 mt-16">
             Projects
           </h2>
-          <div>
-            <div className="flex w-full aspect-square relative mb-12 after:content-[''] after:m-8 after:md:m-16 after:z-0 after:w-full after:bg-gradient-to-b after:from-transparent after:to-neutral-800 md:aspect-unset lg:mb-0 md:h-160 lg:w-full">
+          <div className="relative mt-8 mb-52 px-4 flex flex-col">
+            <div className="flex w-full aspect-square relative mb-12 md:aspect-unset max-w-3xl lg:mx-16">
               <img
-                className="absolute w-full h-full object-cover p-8 md:p-16 md:w-full"
+                className="object-cover -z-10"
                 src="images/nail-braille/Summary Image.jpg"
                 alt="Nail Braille Title Image"
-              />
-            </div>
-            <div className="relative -top-40">
-              <h3
-                className="font-display text-4xl text-neutral-100"
                 id="nail-braille"
-              >
+              />
+              <div className="absolute h-full w-full bg-gradient-to-b from-transparent to-neutral-800"></div>
+            </div>
+            <div className="absolute -bottom-20 left-0">
+              <h3 className="font-display text-4xl text-neutral-100">
                 Nail Braille
               </h3>
               <h6 className="font-display text-xl text-neutral-500">
@@ -223,6 +222,271 @@ export default async function Home() {
                   Read more...
                 </Link>
               </p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 mb-52 px-4 flex flex-col items-end">
+            <div className="flex w-full aspect-square relative mb-12 md:aspect-unset max-w-3xl lg:mx-16">
+              <img
+                className="object-cover -z-10"
+                src="images/event-dashboard/landing.png"
+                alt="Event Dashboard Title Image"
+                id="event-dashboard"
+              />
+              <div className="absolute h-full w-full bg-gradient-to-b from-transparent to-neutral-800"></div>
+            </div>
+            <div className="absolute -bottom-20 right-0 text-right">
+              <h3 className="font-display text-4xl text-neutral-100">
+                Event Dashboard
+              </h3>
+              <h6 className="font-display text-xl text-neutral-500">
+                <Link
+                  href="https://www.tedxcolumbialakeyouth.com/"
+                  target="_blank"
+                  className="hover:text-neutral-100 transition-colors duration-300 ease-out"
+                >
+                  EVENT SITE
+                </Link>
+                {" | "}
+                <Link
+                  href="https://github.com/Moulik-Budhiraja/TEDxColumbia-Lake-Youth-Dashboard"
+                  target="_blank"
+                  className="hover:text-neutral-100 transition-colors duration-300 ease-out"
+                >
+                  GITHUB
+                </Link>
+              </h6>
+              <p className="text-neutral-400 pl-4 max-w-sm">
+                This event dashboard was designed and developed for the 2023
+                TEDx Columbia Lake Youth event. It allowed attendees to RSVP,
+                view their ticket, and network with others at the event. Also
+                allowing organizers to manage attendees, send emails, and
+                validate tickets.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 mb-52 px-4 flex flex-col">
+            <div className="flex w-full aspect-square relative mb-12 md:aspect-unset max-w-3xl lg:mx-16">
+              <img
+                className="object-cover -z-10"
+                src="images/hawkeye/landing.png"
+                alt="Hawkeye Landing Image"
+                id="hawkeye"
+              />
+              <div className="absolute h-full w-full bg-gradient-to-b from-transparent to-neutral-800"></div>
+            </div>
+            <div className="absolute -bottom-20 left-0">
+              <h3 className="font-display text-4xl text-neutral-100">
+                Hawkeye
+              </h3>
+              <h6 className="font-display text-xl text-neutral-500">
+                <Link
+                  href="https://devpost.com/software/hawkeye-amc4n7"
+                  target="_blank"
+                  className="hover:text-neutral-100 transition-colors duration-300 ease-out"
+                >
+                  DEVPOST
+                </Link>
+                {" | "}
+                <Link
+                  href="https://github.com/Moulik-Budhiraja/HawkEye"
+                  target="_blank"
+                  className="hover:text-neutral-100 transition-colors duration-300 ease-out"
+                >
+                  GITHUB
+                </Link>
+              </h6>
+              <p className="text-neutral-400 pl-4 max-w-sm">
+                Hawkeye is a project that helps people with visual impairments
+                visualize the world around them. It uses the AdHawk MindLink to
+                provide essential visual information to the blind and visually
+                impaired. Our application offers a wide range of functions.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 mb-40 px-4 flex flex-col items-end">
+            <div className="flex w-full aspect-square relative mb-12 md:aspect-unset max-w-3xl lg:mx-16">
+              <img
+                className="object-cover -z-10"
+                src="images/irrigation-controller/lawn.jpg"
+                alt="Irrigation Controller Title Image"
+                id="irrigation-controller"
+              />
+              <div className="absolute h-full w-full bg-gradient-to-b from-transparent to-neutral-800"></div>
+            </div>
+            <div className="absolute -bottom-20 right-0 text-right">
+              <h3 className="font-display text-4xl text-neutral-100">
+                Irrigation Controller
+              </h3>
+              <h6 className="font-display text-xl text-neutral-500">
+                <Link
+                  href="https://github.com/Moulik-Budhiraja/Sprinkler-System"
+                  target="_blank"
+                  className="hover:text-neutral-100 transition-colors duration-300 ease-out"
+                >
+                  GITHUB
+                </Link>
+              </h6>
+              <p className="text-neutral-400 pl-4 max-w-sm">
+                With just an ESP32, a few relays, and solenoid valves, this
+                sprinkler system can be used to automate the watering of your
+                lawn. Through its mobile friendly web interface, you can
+                schedule watering times, view and add to the task queue, and see
+                the past watering history.
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <LinkButton
+              href="https://github.com/Moulik-Budhiraja?tab=repositories"
+              target="_blank"
+            >
+              See More Projects on Github
+            </LinkButton>
+          </div>
+        </section>
+        <section>
+          <h2 className="font-display text-5xl text-neutral-100 mt-16">
+            Experiences
+          </h2>
+          <div className="py-8 md:px-12 md:my-8">
+            <div className="flex flex-col gap-8 border-l p-8 pr-0 relative experiences">
+              <div className="group/exp w-fit">
+                <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
+                  Website Manager & Full Stack Developer
+                </h3>
+                <h4 className="text-neutral-500 text-sm">
+                  ReSEC Lab @ Wilfred Laurier University
+                </h4>
+                <div className="text-neutral-600 text-xs">
+                  Aug 2023 - Present
+                </div>
+
+                <ul className="list-disc opacity-0 transition-opacity duration-300 ease-out xl:group-hover/exp:opacity-100 absolute w-1/2 right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <li>
+                    Migrated web app towards modern infrastructure using AWS
+                  </li>
+                  <li>Optimized databases to improve app performance</li>
+                  <li>
+                    Increased site performance by optimizing core functions
+                  </li>
+                  <li>Setup CI/CD flow for fast iterative development</li>
+                </ul>
+              </div>
+              <div className="group/exp w-fit">
+                <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
+                  Tech & Co-Head of Production
+                </h3>
+                <h4 className="text-neutral-500 text-sm">
+                  TEDx Columbia Lake Youth
+                </h4>
+                <div className="text-neutral-600 text-xs">
+                  Sep 2023 - Present
+                </div>
+                <ul className="list-disc opacity-0 transition-opacity duration-300 ease-out xl:group-hover/exp:opacity-100 absolute w-1/2 right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <li>
+                    Designed a mobile-friendly user dashboard for 150+ users:
+                    organizers, speakers, and attendees.
+                  </li>
+                  <li>Integrated authentication for secure access.</li>
+                  <li>
+                    Enabled RSVP, digital networking, and ticket viewing for
+                    attendees.
+                  </li>
+                  <li>
+                    Provided user management, badge linking, and RSVP tracking
+                    for organizers.
+                  </li>
+                  <li>
+                    Utilized Nextjs, SQL, Docker, and AWS for development and
+                    deployment.
+                  </li>
+                </ul>
+              </div>
+              <div className="default-hover">
+                Hover over an experience to see more details
+              </div>
+              <div className="group/exp w-fit">
+                <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
+                  Judge & Mentor
+                </h3>
+                <h4 className="text-neutral-500 text-sm">RythmHacks</h4>
+                <div className="text-neutral-600 text-xs">Sep 2023</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <LinkButton
+              href="https://www.linkedin.com/in/moulikbudhiraja/#experience"
+              target="_blank"
+            >
+              See All Experiences on Linkedin
+            </LinkButton>
+          </div>
+        </section>
+        <section className="h-[calc(100vh-4rem)] relative">
+          <h2 className="font-display text-5xl text-neutral-100 mt-16">
+            Contact
+          </h2>
+          <div className="my-12 flex flex-col items-center md:flex-row md:gap-16 md:justify-center absolute w-full top-1/2 -translate-y-[calc(50%+4rem)]">
+            <div className="aspect-square rounded-full overflow-hidden w-32 md:w-60">
+              <img
+                className="object-cover"
+                src="/images/profile/profile-pic.jpg"
+                alt="Profile Photo"
+              />
+            </div>
+            <div className="flex flex-col items-center">
+              <h3 className="font-display text-neutral-300 text-3xl md:text-5xl mt-2">
+                Moulik Budhiraja
+              </h3>
+              <p className="max-w-[11rem] text-center">
+                Feel free to reach out, I'd love to connect!
+              </p>
+              <div className="flex h-8 gap-5 items-center mt-3 lg:justify-center">
+                <Link
+                  href="mailto:contact@moulikbudhiraja.com"
+                  target="_blank"
+                  className="h-full opacity-25 hover:opacity-100 transition-opacity duration-300 ease-out z-10"
+                >
+                  <img src="/images/mail.svg" alt="gmail" className="h-full" />
+                </Link>
+                <Link
+                  href="https://github.com/Moulik-Budhiraja"
+                  target="_blank"
+                  className="h-full opacity-25 hover:opacity-100 transition-opacity duration-300 ease-out z-10"
+                >
+                  <img
+                    src="/images/github.svg"
+                    alt="github"
+                    className="h-full"
+                  />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/in/moulikbudhiraja/"
+                  target="_blank"
+                  className="h-full opacity-25 hover:opacity-100 transition-opacity duration-300 ease-out z-10"
+                >
+                  <img
+                    src="/images/linkedin.svg"
+                    alt="linkedin"
+                    className="h-full"
+                  />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/moulik_b/"
+                  target="_blank"
+                  className="h-full opacity-25 hover:opacity-100 transition-opacity duration-300 ease-out z-10"
+                >
+                  <img
+                    src="/images/instagram.svg"
+                    alt="instagram"
+                    className="h-full"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
