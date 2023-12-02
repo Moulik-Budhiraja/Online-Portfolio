@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 // import Providers from "./Providers";
 import { Poiret_One, Manrope } from "next/font/google";
 import Providers from "./Providers";
+import ActivityLogger from "./ActivityLogger";
 
 const poiret_one = Poiret_One({
   subsets: ["latin"],
@@ -35,6 +36,8 @@ export default function RootLayout({
             className={`fixed w-[175vh] h-60 lg:h-72 2xl:h-96 bg-neutral-300 rounded-full opacity-5 -translate-x-1/2 -translate-y-1/2 pointer-events-none top-[140vh] left-[80vw] rotate-[120deg] -z-50`}
           ></div>
           {children}
+
+          <ActivityLogger></ActivityLogger>
         </Providers>
       </body>
     </html>

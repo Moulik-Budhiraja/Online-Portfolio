@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio-site:1.2.4
+    image: portfolio-site:1.3.0
     ports:
       - "9842:3000"
     environment:

@@ -6,6 +6,7 @@ import Comment from "@/components/Comment/Comment";
 import { getComments } from "@/serverFunctions/comment/getComments";
 import { Comment as RootComment } from "@prisma/client";
 import { useUser } from "@/hooks/useUser/useUser";
+import { useActivity } from "@/hooks/useActivity/useActivity";
 
 type CommentSectionProps = {
   blogId: string;

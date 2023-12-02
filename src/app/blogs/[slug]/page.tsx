@@ -42,7 +42,6 @@ export default async function Blog({ params }: BlogProps) {
           });
           return;
         }
-
         element.classList.add(className);
       });
     });
