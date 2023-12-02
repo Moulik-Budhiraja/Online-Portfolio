@@ -25,17 +25,6 @@ function getActivity(userId?: string) {
   fetch("https://ipapi.co/json/")
     .then((response) => response.json())
     .then((data) => {
-      console.log(
-        "Activity",
-        data.ip,
-        data.country_name,
-        data.region,
-        data.city,
-        data.timezone,
-        window.location.pathname,
-        navigator.userAgent
-      );
-
       logActivity({
         ip: data.ip,
         country: data.country_name,
