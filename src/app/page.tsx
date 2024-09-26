@@ -378,6 +378,34 @@ export default async function Home() {
               </div>
               <div className="group/exp w-fit">
                 <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
+                  Student Desktop App Developer
+                </h3>
+                <h4 className="text-neutral-500 text-sm">
+                  Hastech Manufacturing | Linamar Corporation
+                </h4>
+                <div className="text-neutral-600 text-xs">
+                  Apr 2024 - Aug 2024
+                </div>
+                <ul className="list-disc opacity-0 transition-opacity duration-300 ease-out xl:group-hover/exp:opacity-100 absolute w-1/2 right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <li>
+                    Developed a PyQT5-based desktop application to digitize data
+                    collection and provide immediate statistics, enhancing data
+                    accuracy and accessibility.
+                  </li>
+                  <li>
+                    Implemented an auto-update system, reducing application
+                    update time across the plant from hours to minutes,
+                    significantly improving operational efficiency.
+                  </li>
+                  <li>
+                    Created an automatic alert system to notify supervisors when
+                    process data was not logged, ensuring timely monitoring and
+                    intervention.
+                  </li>
+                </ul>
+              </div>
+              <div className="group/exp w-fit">
+                <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
                   Tech & Co-Head of Production
                 </h3>
                 <h4 className="text-neutral-500 text-sm">
@@ -408,13 +436,6 @@ export default async function Home() {
               </div>
               <div className="default-hover">
                 Hover over an experience to see more details
-              </div>
-              <div className="group/exp w-fit">
-                <h3 className="font-display text-2xl text-neutral-200 relative before:content-[''] before:w-4 before:h-4 before:border before:bg-neutral-850 before:absolute before:top-1/2 before:-translate-y-1/2 before:-left-10">
-                  Judge & Mentor
-                </h3>
-                <h4 className="text-neutral-500 text-sm">RythmHacks</h4>
-                <div className="text-neutral-600 text-xs">Sep 2023</div>
               </div>
             </div>
           </div>
