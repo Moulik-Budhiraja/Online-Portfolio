@@ -89,9 +89,10 @@ export default async function Home() {
               <div className="text-neutral-400 py-6 pl-8 max-w-3xl lg:pr-16 mt-12 border-neutral-100 border-l">
                 <p>
                   I&apos;m an enthusiastic Software Engineering student at the
-                  University of Guelph who is passionate about math, technology
-                  and photography. I like to spend my free time working on
-                  personal programming projects and learning new skills.
+                  University of Waterloo who is passionate about math,
+                  technology and photography. I like to spend my free time
+                  working on personal programming projects and learning new
+                  skills.
                   <br />
                   <br />
                   My experiences as a student, tutor and leader have taught me
