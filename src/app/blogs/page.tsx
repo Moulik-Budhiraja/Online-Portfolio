@@ -13,7 +13,14 @@ export default async function Blogs({ searchParams }: BlogsProps) {
       title: {
         contains: searchParams.title,
       },
-      class: null,
+      OR: [
+        {
+          class: null,
+        },
+        {
+          class: "",
+        },
+      ],
       published: true,
     },
     include: {
